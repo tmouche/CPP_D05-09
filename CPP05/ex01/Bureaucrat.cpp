@@ -6,11 +6,12 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 18:46:06 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/09 20:55:33 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/09/09 22:25:02 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.class.hpp"
+#include "Form.class.hpp"
 
 Bureaucrat::Bureaucrat( void ) {
 	return ;
@@ -74,6 +75,16 @@ void	Bureaucrat::decrementGrade( void ) {
 	}
 	catch (Bureaucrat::GradeTooLowException& e) {
 		std::cout << "The actual grade is the lowest so it can not be more increased!" << std::endl;
+	}
+	return ;
+}
+
+void	Bureaucrat::signForm(Form& src) {
+	try {
+		src.beSigned(*this);
+	}
+	catch (Form::GradeTooLowException &e) {
+		std::cout << this->_name << " couldn't sign " << src.getName() << " because his grade is too low";
 	}
 	return ;
 }

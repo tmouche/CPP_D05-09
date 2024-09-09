@@ -6,7 +6,7 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 03:10:06 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/09 20:54:59 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/09/09 22:14:50 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define BUREAU_CLASS_HPP
 # include <string>
 # include <iostream>
+
+class Form;
 
 class Bureaucrat {
 public :
@@ -35,8 +37,10 @@ public :
 
 	std::string	getName( void ) const;
 	int			getGrade( void ) const;
+
 	void		incrementGrade( void );
 	void		decrementGrade( void );
+	void		signForm(Form& src);
 
 private :
 	Bureaucrat( void );

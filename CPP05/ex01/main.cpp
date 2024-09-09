@@ -6,17 +6,19 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 20:02:53 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/09 21:19:43 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/09/09 22:21:12 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.class.hpp"
+#include "Form.class.hpp"
 #include <iostream>
 
 int	main( void ) {
 
 	Bureaucrat	aKid("Meg", 3);
 	Bureaucrat	fKid("Chris", 148);
+	Form		newForm("Firing Chris", 1, 1);
 
 	std::cout << aKid << std::endl;
 	std::cout << fKid << std::endl;
@@ -30,5 +32,7 @@ int	main( void ) {
 	fKid.decrementGrade();
 	fKid.decrementGrade(); //should catch an exception
 	std::cout << fKid << std::endl;
+	aKid.signForm(newForm);
+	fKid.signForm(newForm);
 	return 0;
 }
