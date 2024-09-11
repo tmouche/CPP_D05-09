@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   RobotomyRequestForm.class.hpp                      :+:      :+:    :+:   */
+/*   ShrubberyCreationForm.class.hpp                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 04:06:54 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/11 18:39:59 by thibaud          ###   ########.fr       */
+/*   Created: 2024/09/11 03:47:33 by thibaud           #+#    #+#             */
+/*   Updated: 2024/09/11 05:14:27 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RobotomyRequestForm_CLASS_HPP
-# define RobotomyRequestForm_CLASS_HPP
+#ifndef SHRUBBERYCREATIONFORM_CLASS_HPP
+# define SHRUBBERYCREATIONFORM_CLASS_HPP
 # include "AForm.class.hpp"
 
-class RobotomyRequestForm : public AForm {
-public :
-	~RobotomyRequestForm( void );
-	RobotomyRequestForm(std::string target);
-	RobotomyRequestForm(RobotomyRequestForm const & src);
+class Bureaucrat;
 
-	RobotomyRequestForm&	operator=(RobotomyRequestForm const & rhs);
+class ShrubberyCreationForm : public AForm {
+public :
+	~ShrubberyCreationForm( void );
+	ShrubberyCreationForm(std::string target);
+	ShrubberyCreationForm(ShrubberyCreationForm const & src);
+	
+	ShrubberyCreationForm&	operator=(ShrubberyCreationForm const & rhs);
 
 	virtual void	execute(Bureaucrat const & executor) const;
 
 private :
-	RobotomyRequestForm( void );
+	ShrubberyCreationForm( void );
 	std::string	_target;
 
 };
-
+	
 #endif

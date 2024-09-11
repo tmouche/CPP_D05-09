@@ -6,7 +6,7 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 16:30:24 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/11 18:41:34 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/09/11 18:45:10 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 #include "RobotomyRequestForm.class.hpp"
 #include "ShrubberyCreationForm.class.hpp"
 #include "AForm.class.hpp"
+#include "Intern.class.hpp"
 #include <iostream>
 
 int	main( void ) {
 
 	Bureaucrat	aKid("Meg", 3);
 	Bureaucrat	fKid("Chris", 148);
-	AForm*		PPF = new PresidentialPardonForm("Chris");
-	AForm*		RRF = new RobotomyRequestForm("Chris");
-	AForm*		SCF = new ShrubberyCreationForm("Home");
+	Intern		tasker;
 
 	std::cout << aKid << std::endl;
 	std::cout << fKid << std::endl;
@@ -37,8 +36,11 @@ int	main( void ) {
 	fKid.decrementGrade();
 	fKid.decrementGrade(); //should catch an exception
 	std::cout << fKid << std::endl;
-	aKid.executeForm(*PPF);
-	fKid.signForm(*PPF);
+	AForm*	PPF = tasker.makeForm("PresidentialPardonForm", "Chris");
+	AForm*	RRF = tasker.makeForm("RobotomyRequestForm", "Chris");
+	AForm*	SCF = tasker.makeForm("ShrubberyCreationForm", "Home");
+	aKid.executeForm(*PPF); //should catch an exception
+	fKid.signForm(*PPF); //should catch an exception
 	aKid.signForm(*PPF);
 	aKid.executeForm(*PPF);
 	aKid.signForm(*RRF);
