@@ -6,7 +6,7 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 03:56:19 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/11 05:14:21 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/09/11 16:55:58 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,50 +40,14 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(ShrubberyCreationForm co
 }
 
 void	ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
-  try {
-  	if (executor.getGrade() > this->getGradeSign()
-  		|| executor.getGrade() > this->getGradeExecute())
-  		throw AForm::GradeTooLowException();
-  	else if (this->getSigned() == false)
-  		throw AForm::FormNotSigned();
-  	else {
-  	  std::ofstream	ofs(this->_target + "_shrubbery");
-  	  ofs << "                                                         .
-                                                  .         ;  
-                     .              .              ;%     ;;   
-                       ,           ,                :;%  %;   
-                        :         ;                   :;%;'     .,   
-               ,.        %;     %;            ;        %;'    ,;
-                 ;       ;%;  %%;        ,     %;    ;%;    ,%'
-                  %;       %;%;      ,  ;       %;  ;%;   ,%;' 
-                   ;%;      %;        ;%;        % ;%;  ,%;'
-                    `%;.     ;%;     %;'         `;%%;.%;'
-                     `:;%.    ;%%. %@;        %; ;@%;%'
-                        `:%;.  :;bd%;          %;@%;'
-                          `@%:.  :;%.         ;@@%;'   
-                            `@%.  `;@%.      ;@@%;         
-                              `@%%. `@%%    ;@@%;        
-                                ;@%. :@%%  %@@%;       
-                                  %@bd%%%bd%%:;     
-                                    #@%%%%%:;;
-                                    %@@%%%::;
-                                    %@@@%(o);  . '         
-                                    %@@@o%;:(.,'         
-                                `.. %@@@o%::;         
-                                   `)@@@o%::;         
-                                    %@@(o)::;        
-                                   .%@@@@%::;         
-                                   ;%@@@@%::;.          
-                                  ;%@@@@%%:;;;. 
-                              ...;%@@@@@%%:;;;;,..    ";
-  	  ofs.close();
-    }
-  }
-  catch (AForm::GradeTooLowException& e) {
-  	std::cout << executor.getName() << " couldn't execute " << this->getName() << " because his grade is too low!";
-  }
-  catch (AForm::FormNotSigned& e) {
-  	std::cout << executor.getName() << " have to sign " << this->getName() << " before execute it!";
-  }
+  if (executor.getGrade() > this->getGradeSign()
+  	|| executor.getGrade() > this->getGradeExecute())
+  	throw AForm::GradeTooLowException();
+  else if (this->getSigned() == false)
+  	throw AForm::FormNotSigned();
+  std::ofstream	ofs(this->_target + "_shrubbery");
+  ofs << "TREE IN ASCII";
+  ofs.close();
+  std::cout << executor.getName() << " executed " << this->getName() << std::endl;
   return ;
 }

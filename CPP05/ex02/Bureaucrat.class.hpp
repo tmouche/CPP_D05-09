@@ -6,7 +6,7 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 03:10:06 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/09 22:40:18 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/09/11 16:34:12 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ public :
 
 	void		incrementGrade( void );
 	void		decrementGrade( void );
-	void		signForm(AForm& src);
+	void		signForm(AForm& form);
+	void		executeForm(AForm const & form);
 
 private :
 	Bureaucrat( void );

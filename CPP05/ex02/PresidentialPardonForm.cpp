@@ -6,7 +6,7 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 04:21:51 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/11 04:43:47 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/09/11 16:56:08 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,12 @@ PresidentialPardonForm&	PresidentialPardonForm::operator=(PresidentialPardonForm
 }
 
 void	PresidentialPardonForm::execute(Bureaucrat const & executor) const {
-	try {
-		if (executor.getGrade() > this->getGradeSign()
-			|| executor.getGrade() > this->getGradeExecute())
-			throw AForm::GradeTooLowException();
-		else if (this->getSigned() == false)
-			throw AForm::FormNotSigned();
-		else
-			std::cout << this->_target << " has been pardoned by Zaphod Beeblebrox!" << std::endl;
-	}
-	catch (AForm::GradeTooLowException& e) {
-		std::cout << executor.getName() << " couldn't execute " << this->getName() << " because his grade is too low!";
-	}
-	catch (AForm::FormNotSigned& e) {
-		std::cout << executor.getName() << " have to sign " << this->getName() << " before execute it!";
-	}
+	if (executor.getGrade() > this->getGradeSign()
+		|| executor.getGrade() > this->getGradeExecute())
+		throw AForm::GradeTooLowException();
+	else if (this->getSigned() == false)
+		throw AForm::FormNotSigned();
+	std::cout << this->_target << " has been pardoned by Zaphod Beeblebrox!" << std::endl;
+  	std::cout << executor.getName() << " executed " << this->getName() << std::endl;
 	return ;
 }

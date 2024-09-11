@@ -6,7 +6,7 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 18:46:06 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/09 22:40:39 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/09/11 16:55:35 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,26 @@ void	Bureaucrat::decrementGrade( void ) {
 	return ;
 }
 
-void	Bureaucrat::signForm(AForm& src) {
+void	Bureaucrat::signForm(AForm& form) {
 	try {
-		src.beSigned(*this);
+		form.beSigned(*this);
 	}
 	catch (AForm::GradeTooLowException &e) {
-		std::cout << this->_name << " couldn't sign " << src.getName() << " because his grade is too low";
+		std::cout << this->_name << " couldn't sign " << form.getName() << " because his grade is too low" << std::endl;
 	}
+	return ;
+}
+
+void	Bureaucrat::executeForm(AForm const & form) {
+	try {
+		form.execute(*this);
+	}
+	catch (AForm::GradeTooLowException& e) {
+  		std::cout << this->_name << " couldn't execute " << form.getName() << " because his grade is too low!" << std::endl;
+  	}
+  	catch (AForm::FormNotSigned& e) {
+  		std::cout << this->_name << " have to sign " << form.getName() << " before execute it!" << std::endl;;
+  	}
 	return ;
 }
 
