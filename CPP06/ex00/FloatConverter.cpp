@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   IntConverter.cpp                                   :+:      :+:    :+:   */
+/*   FloatConverter.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:04:18 by tmouche           #+#    #+#             */
-/*   Updated: 2024/09/16 13:10:22 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/09/16 13:11:33 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "IntConverter.class.hpp"
+#include "FloatConverter.class.hpp"
 
-IntConverter::IntConverter( void ) {
+FloatConverter::FloatConverter( void ) {
 	return ;
 }
 
-IntConverter::~IntConverter( void ) {
+FloatConverter::~FloatConverter( void ) {
 	return ;
 }
 
-IntConverter::IntConverter(IntConverter const & src) {
+FloatConverter::FloatConverter(FloatConverter const & src) {
 	*this = src;
 	return ;
 }
 
-IntConverter&	IntConverter::operator=(IntConverter const & rhs) {
+FloatConverter&	FloatConverter::operator=(FloatConverter const & rhs) {
 	return *this;
 }
 
-bool	IntConverter::itsInt(std::string src) {
+bool	FloatConverter::itsFloat(std::string src) {
 	return ;
 }

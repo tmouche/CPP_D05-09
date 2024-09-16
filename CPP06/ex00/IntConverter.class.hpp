@@ -16,7 +16,7 @@
 
 class IntConverter {
 public :
-	static bool	itsChar(std::string src);
+	static bool	itsInt(std::string src);
 
 private :
 	IntConverter( void );
