@@ -16,7 +16,7 @@
 
 class FloatConverter {
 public :
-	static bool	itsFloat(std::string src);
+	static float	converter(std::string src);
 
 private :
 	FloatConverter( void );

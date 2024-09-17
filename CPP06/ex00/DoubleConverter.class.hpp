@@ -16,7 +16,7 @@
 
 class DoubleConverter {
 public :
-	static bool	itsDouble(std::string src);
+	static double	converter(std::string src);
 
 private :
 	DoubleConverter( void );

@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CharConverter.class.hpp                            :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 13:00:08 by tmouche           #+#    #+#             */
-/*   Updated: 2024/09/17 05:24:04 by thibaud          ###   ########.fr       */
+/*   Created: 2024/09/17 06:56:34 by thibaud           #+#    #+#             */
+/*   Updated: 2024/09/17 06:57:38 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHARCONVERTER_CLASS_HPP
-# define CHARCONVERTER_CLASS_HPP
-# include <string>
+#include "ScalarConverter.class.hpp"
 
-class CharConverter {
-public :
-	static char	convert(std::string src);
-
-private :
-	CharConverter( void );
-	~CharConverter( void );
-	CharConverter(CharConverter const & src);
-
-	CharConverter&	operator=(CharConverter const & rhs);
-};
-
-#endif
+int	main(int argc, char **argv) {
+	ScalarConverter::convert(argv[1]);
+	return 1;
+}
