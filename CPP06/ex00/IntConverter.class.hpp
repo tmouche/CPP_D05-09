@@ -18,6 +18,11 @@ class IntConverter {
 public :
 	static int	converter(std::string src);
 
+	class	noConvertionException {
+	public :
+		virtual const void	what() const throw() {};
+	};
+
 private :
 	IntConverter( void );
 	~IntConverter( void );

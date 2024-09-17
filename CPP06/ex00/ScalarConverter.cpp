@@ -35,13 +35,27 @@ ScalarConverter&	ScalarConverter::operator=(ScalarConverter const & rhs) {
 }
 
 void	ScalarConverter::convert(std::string input) {
-	std::cout << "char :";
-	CharConverter::convert(input);
-	std::cout << "int :";
-	IntConverter::converter(input);
-	std::cout << "float :";
-	FloatConverter::converter(input);
-	std::cout << "double :";
-	DoubleConverter::converter(input);
+	char	c;
+	int		i;
+	float	f;
+	double	d;
+
+	std::cout << "char: ";
+	try {
+		c = CharConverter::converter(input);
+		if (c < 32 || c > 126)
+			std::cout << "Non displayable" << std::endl;
+		else
+			std::cout << c << std::endl;
+	}
+	catch (CharConverter::noConvertionException const & e) {
+		std::cout << "impossible" << std::endl;
+	}
+	std::cout << "int: ";
+	i = IntConverter::converter(input);
+	std::cout << "float: ";
+	f = FloatConverter::converter(input);
+	std::cout << "double: ";
+	d = DoubleConverter::converter(input);
 	return ;
 }

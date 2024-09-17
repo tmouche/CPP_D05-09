@@ -31,7 +31,20 @@ IntConverter&	IntConverter::operator=(IntConverter const & rhs) {
 	return *this;
 }
 
-int	IntConverter::converter(std::string src) {
-	std::cout << std::endl;
-	return 0;
+int	IntConverter::converter(std::string const src) {
+	int				intConverted;
+
+	try {
+		intConverted = std::stoi(src);
+	}
+	catch (std::invalid_argument const & e) {
+		std::cout << "impossible" << std::endl;
+		return std::nan("");
+	}
+	catch (std::out_of_range const & e) {
+		std::cout << "impossible" << std::endl;
+		return  std::nan("");
+	}
+	std::cout << intConverted << std::endl;
+	return intConverted;
 }

@@ -16,7 +16,12 @@
 
 class DoubleConverter {
 public :
-	static double	converter(std::string src);
+	static double	converter(std::string const src);
+
+	class	noConvertionException {
+	public :
+		virtual const void	what() const throw() {};
+	};
 
 private :
 	DoubleConverter( void );

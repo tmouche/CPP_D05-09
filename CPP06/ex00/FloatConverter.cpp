@@ -12,6 +12,8 @@
 
 #include "FloatConverter.class.hpp"
 #include <iostream>
+#include <iomanip>
+#include <ios>
 #include <cmath>
 
 FloatConverter::FloatConverter( void ) {
@@ -31,35 +33,23 @@ FloatConverter&	FloatConverter::operator=(FloatConverter const & rhs) {
 	return *this;
 }
 
-float	FloatConverter::converter(std::string src) {
+float	FloatConverter::converter(std::string const src) {
 	float				floatConverted;
-	std::string const	specialSrc[3] = {"-inff", "+inff", "nanf"};
-	int					idx;
+	std::streamsize		ss = std::cout.precision();
 
-	for (idx = 0; idx < 3 && specialSrc[idx].compare(src); idx++);
-	switch (idx) {
-		case 0 :
-			floatConverted = __FLT_MIN__;
-			std::cout << "-inff" << std::endl;
-		case 1 :
-			floatConverted = __FLT_MAX__;
-			std::cout << "+inff" << std::endl;
-		case 2 :
-			floatConverted = std::nanf("");
-			std::cout << "nanf" << std::endl;
-		default :
-			try {
-				floatConverted = std::stof(src);
-			}
-			catch (std::invalid_argument const & e) {
-				std::cout << "impossible" << std::endl;
-				return std::nanf("");
-			}
-			catch (std::out_of_range const & e) {
-				std::cout << "impossible" << std::endl;
-				return  std::nanf("");
-			}
-			std::cout << floatConverted << std::endl;
+	try {
+		floatConverted = std::stof(src);
 	}
+	catch (std::invalid_argument const & e) {
+		std::cout << "impossible" << std::endl;
+		return std::nanf("");
+	}
+	catch (std::out_of_range const & e) {
+		std::cout << "impossible" << std::endl;
+		return  std::nanf("");
+	}
+	std::cout.precision(2);
+	std::cout << std::fixed << floatConverted << "f" <<std::endl;
+	std::cout.precision(ss);
 	return floatConverted;
 }

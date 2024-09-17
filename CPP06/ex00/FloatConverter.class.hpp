@@ -16,7 +16,12 @@
 
 class FloatConverter {
 public :
-	static float	converter(std::string src);
+	static float	converter(std::string const src);
+
+	class	noConvertionException {
+	public :
+		virtual const void	what() const throw() {};
+	};
 
 private :
 	FloatConverter( void );

@@ -13,7 +13,7 @@
 SRCS := main.cpp ScalarConverter.cpp CharConverter.cpp IntConverter.cpp FloatConverter.cpp DoubleConverter.cpp
 HDRS := ScalarConverter.class.hpp CharConverter.class.hpp IntConverter.class.hpp FloatConverter.class.hpp DoubleConverter.class.hpp
 OBJS := $(SRCS:.c=.o)
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := c++
 NAME := ScalarConverter
 

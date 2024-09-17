@@ -32,35 +32,23 @@ DoubleConverter&	DoubleConverter::operator=(DoubleConverter const & rhs) {
 	return *this;
 }
 
-double	DoubleConverter::converter(std::string src) {
+double	DoubleConverter::converter(std::string const src) {
 	double				doubleConverted;
-	std::string const	specialSrc[3] = {"-inf", "+inf", "nan"};
-	int					idx;
+	std::streamsize		ss = std::cout.precision();
 
-	for (idx = 0; idx < 3 && specialSrc[idx].compare(src); idx++);
-	switch (idx) {
-		case 0 :
-			doubleConverted = __DBL_MIN__;
-			std::cout << "-inf" << std::endl;
-		case 1 :
-			doubleConverted = __DBL_MAX__;
-			std::cout << "+inf" << std::endl;
-		case 2 :
-			doubleConverted = std::nan("");
-			std::cout << "nan" << std::endl;
-		default :
-			try {
-				doubleConverted = std::stod(src);
-			}
-			catch (std::invalid_argument const & e) {
-				std::cout << "impossible" << std::endl;
-				return std::nan("");
-			}
-			catch (std::out_of_range const & e) {
-				std::cout << "impossible" << std::endl;
-				return  std::nan("");
-			}
-			std::cout << doubleConverted << std::endl;
+	try {
+		doubleConverted = std::stod(src);
 	}
+	catch (std::invalid_argument const & e) {
+		std::cout << "impossible" << std::endl;
+		return std::nan("");
+	}
+	catch (std::out_of_range const & e) {
+		std::cout << "impossible" << std::endl;
+		return  std::nan("");
+	}
+	std::cout.precision(2);
+	std::cout << std::fixed << doubleConverted << std::endl;
+	std::cout.precision(ss);
 	return doubleConverted;
 }

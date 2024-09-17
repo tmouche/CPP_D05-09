@@ -30,13 +30,19 @@ CharConverter&	CharConverter::operator=(CharConverter const & rhs) {
 	return *this;
 }
 
-char	CharConverter::convert(std::string src) {
-	int	const	intConverted = std::stoi(src);
-	char const	c = static_cast<char>(intConverted);
+char	CharConverter::converter(std::string const src){
+	int		intConverted;
+	char	c;
 
-	if (intConverted < 32 || intConverted > 256)
-		std::cout << "impossible" << std::endl;
-	else
-		std::cout << "'" << c << "'" << std::endl;
+	try {
+		intConverted = std::stoi(src);
+	}
+	catch (std::invalid_argument const & e) {
+		throw CharConverter::noConvertionException();
+	}
+	catch (std::out_of_range const & e) {
+		throw CharConverter::noConvertionException();
+	}
+	c = static_cast<char>(intConverted);
 	return c;
 }
