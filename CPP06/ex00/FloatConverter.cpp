@@ -35,21 +35,15 @@ FloatConverter&	FloatConverter::operator=(FloatConverter const & rhs) {
 
 float	FloatConverter::converter(std::string const src) {
 	float				floatConverted;
-	std::streamsize		ss = std::cout.precision();
 
 	try {
 		floatConverted = std::stof(src);
 	}
 	catch (std::invalid_argument const & e) {
-		std::cout << "impossible" << std::endl;
-		return std::nanf("");
+		throw FloatConverter::NoConvertionException();
 	}
 	catch (std::out_of_range const & e) {
-		std::cout << "impossible" << std::endl;
-		return  std::nanf("");
+		throw FloatConverter::NoConvertionException();
 	}
-	std::cout.precision(2);
-	std::cout << std::fixed << floatConverted << "f" <<std::endl;
-	std::cout.precision(ss);
 	return floatConverted;
 }

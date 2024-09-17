@@ -35,6 +35,7 @@ ScalarConverter&	ScalarConverter::operator=(ScalarConverter const & rhs) {
 }
 
 void	ScalarConverter::convert(std::string input) {
+	std::streamsize		ss = std::cout.precision();
 	char	c;
 	int		i;
 	float	f;
@@ -43,19 +44,39 @@ void	ScalarConverter::convert(std::string input) {
 	std::cout << "char: ";
 	try {
 		c = CharConverter::converter(input);
-		if (c < 32 || c > 126)
-			std::cout << "Non displayable" << std::endl;
-		else
-			std::cout << c << std::endl;
+		std::cout << c << std::endl;
 	}
-	catch (CharConverter::noConvertionException const & e) {
+	catch (CharConverter::NoConvertionException const & e) {
 		std::cout << "impossible" << std::endl;
 	}
+	catch (CharConverter::NoDisplayableException const & e) {
+		std::cout << "Not displayable" << std::endl;
+	}
 	std::cout << "int: ";
-	i = IntConverter::converter(input);
+	try {
+		i = IntConverter::converter(input);
+		std::cout << i << std::endl;
+	}
+	catch (IntConverter::NoConvertionException const & e) {
+		std::cout << "impossible" << std::endl;
+	}
+	std::cout.precision(2);
 	std::cout << "float: ";
-	f = FloatConverter::converter(input);
+	try {
+		f = FloatConverter::converter(input);
+		std::cout << std::fixed << f << "f" << std::endl;
+	}
+	catch (CharConverter::NoConvertionException const & e) {
+		std::cout << "impossible" << std::endl;
+	}
 	std::cout << "double: ";
-	d = DoubleConverter::converter(input);
+	try {
+		d = DoubleConverter::converter(input);
+		std::cout << std::fixed << d << std::endl;
+	}
+	catch (DoubleConverter::NoConvertionException const & e) {
+		std::cout << "impossible" << std::endl;
+	}
+	std::cout.precision(ss);
 	return ;
 }

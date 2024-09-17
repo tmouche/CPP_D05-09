@@ -38,13 +38,10 @@ int	IntConverter::converter(std::string const src) {
 		intConverted = std::stoi(src);
 	}
 	catch (std::invalid_argument const & e) {
-		std::cout << "impossible" << std::endl;
-		return std::nan("");
+		throw IntConverter::NoConvertionException();
 	}
 	catch (std::out_of_range const & e) {
-		std::cout << "impossible" << std::endl;
-		return  std::nan("");
+		throw IntConverter::NoConvertionException();
 	}
-	std::cout << intConverted << std::endl;
 	return intConverted;
 }

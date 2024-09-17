@@ -18,7 +18,12 @@ class CharConverter {
 public :
 	static char	converter(std::string const src);
 
-	class	noConvertionException {
+	class	NoConvertionException {
+	public :
+		virtual const void	what() const throw() {};
+	};
+
+	class	NoDisplayableException {
 	public :
 		virtual const void	what() const throw() {};
 	};

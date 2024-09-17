@@ -18,7 +18,7 @@ class DoubleConverter {
 public :
 	static double	converter(std::string const src);
 
-	class	noConvertionException {
+	class	NoConvertionException {
 	public :
 		virtual const void	what() const throw() {};
 	};

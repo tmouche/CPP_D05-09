@@ -18,7 +18,7 @@ class IntConverter {
 public :
 	static int	converter(std::string src);
 
-	class	noConvertionException {
+	class	NoConvertionException {
 	public :
 		virtual const void	what() const throw() {};
 	};

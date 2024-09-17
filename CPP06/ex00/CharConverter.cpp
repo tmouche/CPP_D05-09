@@ -38,11 +38,13 @@ char	CharConverter::converter(std::string const src){
 		intConverted = std::stoi(src);
 	}
 	catch (std::invalid_argument const & e) {
-		throw CharConverter::noConvertionException();
+		throw CharConverter::NoConvertionException();
 	}
 	catch (std::out_of_range const & e) {
-		throw CharConverter::noConvertionException();
+		throw CharConverter::NoConvertionException();
 	}
+	if (intConverted < 32 || intConverted > 126)	
+		throw CharConverter::NoDisplayableException();
 	c = static_cast<char>(intConverted);
 	return c;
 }

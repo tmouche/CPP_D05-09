@@ -18,7 +18,7 @@ class FloatConverter {
 public :
 	static float	converter(std::string const src);
 
-	class	noConvertionException {
+	class	NoConvertionException {
 	public :
 		virtual const void	what() const throw() {};
 	};

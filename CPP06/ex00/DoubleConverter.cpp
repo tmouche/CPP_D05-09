@@ -34,21 +34,15 @@ DoubleConverter&	DoubleConverter::operator=(DoubleConverter const & rhs) {
 
 double	DoubleConverter::converter(std::string const src) {
 	double				doubleConverted;
-	std::streamsize		ss = std::cout.precision();
 
 	try {
 		doubleConverted = std::stod(src);
 	}
 	catch (std::invalid_argument const & e) {
-		std::cout << "impossible" << std::endl;
-		return std::nan("");
+		throw DoubleConverter::NoConvertionException();
 	}
 	catch (std::out_of_range const & e) {
-		std::cout << "impossible" << std::endl;
-		return  std::nan("");
+		throw DoubleConverter::NoConvertionException();
 	}
-	std::cout.precision(2);
-	std::cout << std::fixed << doubleConverted << std::endl;
-	std::cout.precision(ss);
 	return doubleConverted;
 }
