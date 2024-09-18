@@ -6,16 +6,16 @@
 #    By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:21:22 by thibaud           #+#    #+#              #
-#    Updated: 2024/09/18 13:02:09 by thibaud          ###   ########.fr        #
+#    Updated: 2024/09/18 13:02:04 by thibaud          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS := main.cpp
-HDRS := whatever.template.hpp
+HDRS := Iter.template.hpp
 OBJS := $(SRCS:.c=.o)
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := c++
-NAME := Template
+NAME := Iter
 
 all: $(NAME)
 
