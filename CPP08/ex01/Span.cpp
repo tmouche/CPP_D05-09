@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:44:34 by tmouche           #+#    #+#             */
-/*   Updated: 2024/09/25 12:04:18 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/09/25 12:29:09 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,19 @@ void	Span::addNumber(int num) {
 	}
 	else
 		throw Span::NoSuchSpaceLeftException();
+	return ;
+}
+
+void	Span::addNumber(std::vector<int>::const_iterator start, std::vector<int>::const_iterator end) {
+	while (start != end) {
+		try {
+			this->addNumber(*start);
+			++start;
+		}
+		catch (Span::NoSuchSpaceLeftException& e) {
+			throw Span::NoSuchSpaceLeftException();
+		}
+	}
 	return ;
 }
 

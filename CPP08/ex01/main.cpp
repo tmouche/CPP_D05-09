@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:42:14 by tmouche           #+#    #+#             */
-/*   Updated: 2024/09/25 12:10:49 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/09/25 12:41:35 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,21 @@ int	main( void ) {
 		std::cout << e.what() << std::endl;
 	}
 
+	std::vector<int>					vecRef;
+	Span								itTest(10);
+	
+	for (int idx = 0; idx < 12000; idx++)
+		vecRef.push_back(idx);
+	std::vector<int>::const_iterator	itBegin = vecRef.begin();
+	std::vector<int>::const_iterator	itTen = vecRef.begin();
+	for (int count = 0; count < 10; count++)
+		itTen++;
+	itTest.addNumber(itBegin, itTen);
+	resShortest = numbers.shortestSpan();
+	std::cout << "The shortest span is " << resShortest << std::endl;
+	resLongest = numbers.longestSpan();
+	std::cout << "The longest span is " << resLongest << std::endl;
+	
 	std::cout << "*** * * * Subject Main Test * * * ***" << std::endl;
 
 	Span sp = Span(5);

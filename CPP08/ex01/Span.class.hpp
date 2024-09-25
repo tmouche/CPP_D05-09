@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:33:12 by tmouche           #+#    #+#             */
-/*   Updated: 2024/09/25 12:02:34 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/09/25 12:24:21 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ public :
 	};
 	
 	void			addNumber(int num);
+	void			addNumber(std::vector<int>::const_iterator start, std::vector<int>::const_iterator end);
 	unsigned int	shortestSpan( void ) const;
 	unsigned int	longestSpan( void ) const;
 
