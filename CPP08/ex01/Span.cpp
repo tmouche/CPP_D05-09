@@ -6,12 +6,13 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:44:34 by tmouche           #+#    #+#             */
-/*   Updated: 2024/09/24 18:01:00 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/09/25 12:04:18 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Span.class.hpp"
 #include <iostream>
+#include <limits>
 
 Span::Span( void ) {
 	return ;
@@ -42,7 +43,7 @@ Span&	Span::operator=(Span const & rhs) {
 }
 
 void	Span::addNumber(int num) {
-	if (this->_countDownSize >= 0) {
+	if (this->_countDownSize > 0) {
 		this->_myVector->push_back(num);
 		--this->_countDownSize;
 	}
@@ -69,16 +70,17 @@ unsigned int	Span::longestSpan( void ) const {
 }
 
 unsigned int	Span::shortestSpan( void ) const {
-	std::vector<int>::const_iterator it;
-	int					min, minNext = 0;
+	std::vector<int>::const_iterator	it;
+	int									min, minNext;
 
 	if (this->_myVector->size() < 2)
 		throw Span::NotEnoughElementException();
 	min = this->_myVector->at(0);
+	minNext = __INT_MAX__;
 	for (it = this->_myVector->begin(); it != this->_myVector->end(); it++) {
 		if (*it < min)
 			min = *it;
-		else if (*it < minNext)
+		else if (*it < minNext && it != this->_myVector->begin())
 			minNext = *it;
 	}
 	return (minNext - min);

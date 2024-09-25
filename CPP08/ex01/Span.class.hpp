@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:33:12 by tmouche           #+#    #+#             */
-/*   Updated: 2024/09/24 17:27:53 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/09/25 12:02:34 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ public :
 
 	class NoSuchSpaceLeftException {
 		public :
-			virtual std::string what( void ) const throw();
+			std::string what( void ) const throw();
 	};
 	
 	class 	NotEnoughElementException {
 		public :
-			virtual std::string what( void ) const throw();
+			std::string what( void ) const throw();
 	};
 	
 	void			addNumber(int num);
