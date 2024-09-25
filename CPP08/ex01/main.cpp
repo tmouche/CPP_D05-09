@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 14:42:14 by tmouche           #+#    #+#             */
-/*   Updated: 2024/09/25 12:04:41 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/09/25 12:10:49 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main( void ) {
 	std::cout << "The longest span is " << resLongest << std::endl;
 
 	Span	numFail(1);
-	
+
 	numFail.addNumber(1);
 	try {
 		numFail.addNumber(2);
@@ -45,5 +45,17 @@ int	main( void ) {
 	catch (Span::NotEnoughElementException& e) {
 		std::cout << e.what() << std::endl;
 	}
-	return 1;
+
+	std::cout << "*** * * * Subject Main Test * * * ***" << std::endl;
+
+	Span sp = Span(5);
+
+	sp.addNumber(6);
+	sp.addNumber(3);
+	sp.addNumber(17);
+	sp.addNumber(9);
+	sp.addNumber(11);
+	std::cout << sp.shortestSpan() << std::endl;
+	std::cout << sp.longestSpan() << std::endl;
+	return 0;
 }
