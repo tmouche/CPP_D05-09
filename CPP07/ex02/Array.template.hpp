@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Array.template.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 07:20:33 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/19 08:07:40 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/09/29 18:54:16 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 template< typename T >
 class Array {
 public :
-	Array( void ) {};
+	Array( void ) {}
 	~Array( void ) {
 		delete [] this->_myArray;
 		return ;
-	};
+	}
 	Array(unsigned int n) : _arraySize(n) {
 		this->_myArray = new T[n];
 	};
