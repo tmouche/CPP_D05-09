@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.class.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 10:17:29 by tmouche           #+#    #+#             */
-/*   Updated: 2024/10/09 13:42:13 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/10/09 21:12:10 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,54 @@ public :
 
 	BitcoinExchange&	operator=(BitcoinExchange const & rhs);
 
-	void	dataBaseLoader(std::string DbName);
-	void	inputLoader(std::string DbName);
+	void	dataLoader( void );
+	void	valueMyWallet(std::string inFile);
 
+	class	Exception {
+	public :
+		virtual const void	what( void ) const throw() {}
+	};
+	
+	class	inputException {
+	public :
+		virtual const void	what(std::string input) const throw() {
+			std::cout << "Error: bad input => " << input;
+		}
+	};
+
+	class	TooLargeValueException {
+	public :
+		virtual const void	what( void ) const throw() {
+			std::cout << "Error: not a positive number." << std::endl;
+		};
+	};
+
+	class	NegativeValueException {
+	public :
+		virtual const void	what( void ) const throw() {
+			std::cout << "Error: too large number." << std::endl;
+		};
+	};
+	
 	class	FileException {
 	public :
-		virtual const void	what() const throw() {}
+		virtual const void	what(std::string nameFile) const throw() {
+			std::cout << "Error: No such file " << nameFile << std::endl;
+		}
 	};
 
 private :
 	BitcoinExchange( void );
-	int	convertDate(std::string date);
+	int		convertDate(std::string date) const;
+	bool	checkString(std::string const seed, std::string const data, std::string const corpus) const;
+	int		dateToIdx(int const dateConverted) const;
 	
-	std::vector<int>_dataBaseDate;
 	std::vector<float>_dataBaseRate;
-	std::vector<int>_inputDate;
-	std::vector<float>_inputValue;
 
-	int	const _seed;
-	int	const _offset;
-	static int const	_month[12];/* = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};*/
-	static int const	_monthLeap[12];/* = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};*/
+	int	const 			_seed;
+	int	const 			_offset;
+	static int const	_month[12];
+	static int const	_monthLeap[12];
 };
 
 #endif
