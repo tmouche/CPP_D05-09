@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+         #
+#    By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:21:22 by thibaud           #+#    #+#              #
-#    Updated: 2024/10/09 12:29:17 by tmouche          ###   ########.fr        #
+#    Updated: 2024/10/10 20:31:56 by thibaud          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS := main.cpp BitcoinExchange.cpp
 HDRS := BitcoinExchange.class.hpp
 OBJS := $(SRCS:.c=.o)
-CFLAGS := #-Wall -Wextra -Werror -std=c++98
+CFLAGS := -g #-Wall -Wextra -Werror -std=c++98
 CC := c++
 NAME := btc
 

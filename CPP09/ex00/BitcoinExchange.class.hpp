@@ -6,7 +6,7 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 10:17:29 by tmouche           #+#    #+#             */
-/*   Updated: 2024/10/09 21:12:10 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/10/10 20:35:22 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 class BitcoinExchange {
 public : 
-	BitcoinExchange(std::string seed, int offset);
+	BitcoinExchange( void );
 	~BitcoinExchange( void );
 	BitcoinExchange(BitcoinExchange const & src);
 
@@ -35,21 +35,21 @@ public :
 	class	inputException {
 	public :
 		virtual const void	what(std::string input) const throw() {
-			std::cout << "Error: bad input => " << input;
+			std::cout << "Error: bad input => " << input << std::endl;
 		}
 	};
 
 	class	TooLargeValueException {
 	public :
 		virtual const void	what( void ) const throw() {
-			std::cout << "Error: not a positive number." << std::endl;
+			std::cout << "Error: too large number." << std::endl;
 		};
 	};
 
 	class	NegativeValueException {
 	public :
 		virtual const void	what( void ) const throw() {
-			std::cout << "Error: too large number." << std::endl;
+			std::cout << "Error: not a positive number." << std::endl;
 		};
 	};
 	
@@ -61,15 +61,14 @@ public :
 	};
 
 private :
-	BitcoinExchange( void );
 	int		convertDate(std::string date) const;
 	bool	checkString(std::string const seed, std::string const data, std::string const corpus) const;
 	int		dateToIdx(int const dateConverted) const;
+	void	lineValue(std::string line);
 	
+	std::vector<float>_dataBaseDate;
 	std::vector<float>_dataBaseRate;
 
-	int	const 			_seed;
-	int	const 			_offset;
 	static int const	_month[12];
 	static int const	_monthLeap[12];
 };
