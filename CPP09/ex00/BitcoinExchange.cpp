@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 10:32:40 by tmouche           #+#    #+#             */
-/*   Updated: 2024/10/10 20:34:43 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/10/12 19:40:38 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,25 +79,29 @@ int	BitcoinExchange::convertDate(std::string date) const {
 		res += month[idx];
 	}
 	date.erase(0, date.find('-') + 1);
+	if (std::atoi(date.c_str()) > month[temp - 1])
+		throw inputException();
 	res += std::atoi(date.c_str());
 	return static_cast<int>(res);
 }
 
-void	BitcoinExchange::dataLoader( void ) {
+void	BitcoinExchange::dataLoader(std::string dataFile) {
 	std::string	dataStr;
 	std::string	temp;
 
-	std::ifstream	ifs("data.csv");
+	std::ifstream	ifs(dataFile.c_str());
 	if (!ifs)
 		throw FileException();
 	dataStr.clear();
 	std::getline(ifs, dataStr, '\n');
 	std::getline(ifs, dataStr, '\n');
 	while (dataStr[0]) {
-		if (!checkString("xxxx-xx-xx,x", dataStr, "0123456789"))
-			throw inputException();
-		temp = dataStr; 
-		try {this->_dataBaseDate.push_back(convertDate(dataStr));}
+		try {
+			if (!checkString("xxxx-xx-xx,x", dataStr, "0123456789"))
+				throw inputException();
+			temp = dataStr; 
+			this->_dataBaseDate.push_back(convertDate(dataStr));
+		}
 		catch (inputException& e) {
 			e.what(temp);
 			throw Exception();
@@ -114,7 +118,9 @@ int		BitcoinExchange::dateToIdx(int const dateConverted) const {
 	int	idx;
 
 	for (idx = 0; dateConverted > this->_dataBaseDate[idx]; idx++);
-	if (dateConverted > this->_dataBaseDate[idx]);
+	if (!this->_dataBaseDate[idx] || (idx == 0 && dateConverted != this->_dataBaseDate[0]))
+		throw inputException();
+	if (dateConverted > this->_dataBaseDate[idx])
 		--idx;
 	return idx;
 }
@@ -122,6 +128,7 @@ int		BitcoinExchange::dateToIdx(int const dateConverted) const {
 void	BitcoinExchange::lineValue(std::string line) {
 	std::string	temp;
 	float		amount;
+	int			idx;
 	int			date;
 
 	if (!checkString("xxxx-xx-xx | x", line, "0123456789-")) {
@@ -133,23 +140,35 @@ void	BitcoinExchange::lineValue(std::string line) {
 		e.what(temp);
 		return ;
 	}
-	line.erase(0, line.find('|') + 1);
+	line.erase(0, line.find(' ') + 2);
 	amount = std::atof(line.c_str());
 	if (amount < 0)
 		throw NegativeValueException();
-	else if (amount >= __INT_MAX__)
+	else if (amount >= 1000)
 		throw TooLargeValueException();
 	temp.assign(temp, 0, 10);
-	std::cout << temp << " => " << amount << " = " << amount * this->_dataBaseRate[dateToIdx(date)] << std::endl;
+	try {idx = dateToIdx(date);}
+	catch (inputException& e) {
+		e.what(temp);
+		return ;
+	}
+	std::cout << temp << " => " << amount << " = " << amount * this->_dataBaseRate[idx] << std::endl;
 	return ;
 }
 
-void	BitcoinExchange::valueMyWallet(std::string inFile) {
+void	BitcoinExchange::valueMyWallet(std::string inFile, std::string dataFile) {
 	std::string	dataStr;
 	
+	try {dataLoader(dataFile);}
+	catch (Exception& e) {return ;}
+	catch (FileException& e) {
+		e.what();
+		return ;
+	}
 	std::ifstream	ifs(inFile.c_str());
-	if (!ifs)
+	if (!ifs) {
 		throw FileException();
+	}
 	dataStr.clear();
 	std::getline(ifs, dataStr, '\n');
 	while (dataStr[0]) {
