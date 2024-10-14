@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 10:32:40 by tmouche           #+#    #+#             */
-/*   Updated: 2024/10/12 19:40:38 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/10/14 16:08:35 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 int const	BitcoinExchange::_month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 int const	BitcoinExchange::_monthLeap[12] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-BitcoinExchange::BitcoinExchange( void ){
+BitcoinExchange::BitcoinExchange( void ) {
 	return ;
 }
 
@@ -28,10 +28,15 @@ BitcoinExchange::~BitcoinExchange( void ) {
 }
 
 BitcoinExchange::BitcoinExchange(BitcoinExchange const & src) {
+	*this = src;
 	return ;
 }
 
 BitcoinExchange&	BitcoinExchange::operator=(BitcoinExchange const & rhs) {
+	if (this != &rhs) {
+		this->_dataBaseDate = rhs._dataBaseDate;
+		this->_dataBaseRate = rhs._dataBaseRate;
+	}
 	return *this;
 }
 
