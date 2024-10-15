@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:21:59 by tmouche           #+#    #+#             */
-/*   Updated: 2024/10/14 18:56:22 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/10/15 11:15:40 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ public:
 private:
 	bool	checkString(std::string const data, std::string const corpus) const;
 	void	number(std::string& data);
+	void	space(std::string& data);
 	void	addition(int& temp);
 	void	subtraction(int& temp);
 	void	multiplication(int& temp);

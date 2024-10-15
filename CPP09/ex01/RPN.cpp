@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:27:08 by tmouche           #+#    #+#             */
-/*   Updated: 2024/10/14 19:01:21 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/10/15 11:42:04 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,34 @@ RPN&	RPN::operator=(RPN const & rhs) {
 
 void	RPN::number(std::string &data) {
 	this->_myStack.push(std::atoi(data.c_str()));
+	while (::isdigit(data[0]))
+		data.erase(0, 1);
+	return ;
+}
+
+void	RPN::space(std::string &data) {
+	while (::isblank(data[0]))
+		data.erase(0, 1);
 	return ;
 }
 
 void	RPN::addition(int& temp) {
-	temp += this->_myStack.top();
+	temp = this->_myStack.top() + temp;
 	return ;
 }
 
 void	RPN::subtraction(int& temp) {
-	temp -= this->_myStack.top();
+	temp = this->_myStack.top() - temp;
 	return ;
 }
 
 void	RPN::multiplication(int& temp) {
-	temp *= this->_myStack.top();
+	temp = this->_myStack.top() * temp;
 	return ;
 }
 
 void	RPN::division(int& temp) {
-	temp  /= this->_myStack.top();
+	temp = this->_myStack.top() / temp;
 	return ;
 }
 
@@ -79,7 +87,7 @@ bool	RPN::checkString(std::string const data, std::string const corpus) const {
 }
 
 int	RPN::calculRPN(std::string data) {
-	std::string const	corpus = "0123456789+-*/ ";
+	std::string const	corpus = "0123456789 +-*/";
 	int					temp;
 	int					idx;
 	
@@ -87,16 +95,16 @@ int	RPN::calculRPN(std::string data) {
 		throw std::exception();
 	while (!data.empty()) {
 		for (idx = 0; corpus[idx] && corpus[idx] != data[0]; idx++);
-		if (idx < 10)
-			this->number(data);
-		else if (idx < 14) {
+		if (idx <= 10)
+			idx < 10 ? this->number(data) : this->space(data);
+		else {
 			temp = this->_myStack.top();
 			this->_myStack.pop();
-			(this->*_fctPtr[idx - 10])(temp);
+			(this->*_fctPtr[idx - 11])(temp);
+			data.erase(0, 1);
 			this->_myStack.pop();
 			this->_myStack.push(temp);
 		}
-		data.erase(0, 1);
 	}
 	return (this->_myStack.top());
 }

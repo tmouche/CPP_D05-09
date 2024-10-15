@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 13:52:50 by tmouche           #+#    #+#             */
-/*   Updated: 2024/10/14 18:57:10 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/10/15 11:24:12 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,15 @@
 #include <string>
 
 int	main(int ac, char** av) {
-	RPN	test;
+	RPN		test;
+	int 	res;
 	
 	(void)ac;
-	std::cout << test.calculRPN(av[1]) << std::endl;
+	try {res = test.calculRPN(av[1]);}
+	catch (std::exception& e) {
+		std::cout << "Error" << std::endl;
+		return 0;
+	}
+	std::cout << res << std::endl;
 	return 1;
 }
