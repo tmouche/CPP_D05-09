@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:39 by tmouche           #+#    #+#             */
-/*   Updated: 2024/10/18 14:14:00 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/10/21 21:09:58 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	PmergeMe::sortPairVector( void ) {
 
 	for (int lap = 0; lap < vectorSize; lap++) {
 		for (int idx = 0; idx < vectorSize - 1; idx++) {
-			if (this->_myVectorContainer[idx] > this->_myVectorContainer[idx + 1])
+			if (*this->_myVectorContainer[idx] < *this->_myVectorContainer[idx + 1])
 				this->_myVectorContainer[idx]->swap(*this->_myVectorContainer[idx + 1]);
 		}
 	}
@@ -60,39 +60,18 @@ bool	PmergeMe::mergeSingleVector( void ) {
 	std::vector<int>*	vectorContainer[2] = {new std::vector<int>(*this->_myVectorContainer.back()), NULL};
 
 	this->_myVectorContainer.pop_back();
-	std::cout << "start: ";
-	for (int idx = 0; idx < this->_arraySize; idx++) {
-		std::cout << this->_myVectorContainer[idx]->front() << " ";
-	}
-	std::cout << std::endl;
 	if (this->_myVectorContainer.back()->size() < 2) {
 		vectorContainer[1] = new std::vector<int>(*this->_myVectorContainer.back());
 		this->_myVectorContainer.pop_back();
-		// if (vectorContainer[0] > vectorContainer[1]) {
-		// 	vectorContainer[0]->push_back(vectorContainer[1]->back());
-		// 	delete vectorContainer[1];
-		// 	this->_myVectorContainer.insert(this->_myVectorContainer.begin(), vectorContainer[0]);
-		// }
-		// else {
-		// 	vectorContainer[1]->push_back(vectorContainer[0]->back());
-		// 	delete vectorContainer[0];
-		// 	this->_myVectorContainer.insert(this->_myVectorContainer.begin(), vectorContainer[1]);
-		// }
 		int	idx = (vectorContainer[0]->back() - vectorContainer[1]->back() >= 0 ? 0 : 1);
 		vectorContainer[idx]->push_back(vectorContainer[(idx + 1) % 2]->back());
 		this->_myVectorContainer.insert(this->_myVectorContainer.begin(), vectorContainer[idx]);
 		delete vectorContainer[(idx + 1) % 2];
 	}
 	else {
-		std::cout << "test" << std::endl;
 		this->_myVectorContainer.insert(this->_myVectorContainer.begin(), vectorContainer[0]);
 		return 0;
 	}
-	std::cout << "end: ";
-	for (int idx = 0; idx < this->_arraySize; idx++) {
-		std::cout << this->_myVectorContainer[idx]->front() << " ";
-	}
-	std::cout << std::endl;
 	return 1;
 }
 
@@ -117,7 +96,7 @@ void	PmergeMe::divideVector(std::vector<int> const & numerator) {
 void	PmergeMe::vectorSortMyNumber( void ) {
 	divideVector(this->_myVector);
 	while (mergeSingleVector());
-	// sortPairVector();
+	sortPairVector();
 	return ;
 }
 
@@ -127,7 +106,7 @@ void	PmergeMe::doubleSortMyNumber( void ) {
 	// for (int idx = 0; idx < this->_arraySize; idx++) {
 	// 	std::cout << " " << this->_myVector[idx];
 	// }
-	for (int idx = 0; idx < this->_arraySize; idx++) {
+	for (unsigned int idx = 0; idx < this->_myVectorContainer.size(); idx++) {
 		std::cout << this->_myVectorContainer[idx]->front();
 		if (this->_myVectorContainer[idx]->size() > 1) 
 			std::cout << ", " << this->_myVectorContainer[idx]->back();

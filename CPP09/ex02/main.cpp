@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:06:37 by tmouche           #+#    #+#             */
-/*   Updated: 2024/10/18 13:42:36 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/10/21 20:59:45 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <iostream>
 
 int	main( void ) {
-	int			array[6] = {6, 4, 3, 1, 2, 7};
+	int			array[6] = {6, 10, 3, 8, 2, 7};
 	PmergeMe	test(array, 6);
 	
 	test.doubleSortMyNumber();
