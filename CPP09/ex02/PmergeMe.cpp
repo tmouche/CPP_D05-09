@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:39 by tmouche           #+#    #+#             */
-/*   Updated: 2024/10/21 21:09:58 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/04 19:14:53 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,15 @@ PmergeMe&	PmergeMe::operator=(PmergeMe const & rhs) {
 }
 
 void	PmergeMe::sortPairVector( void ) {
-	int	const vectorSize = this->_myVectorContainer.size();
+	// int	const vectorSize = this->_myVectorContainer.size();
 
-	for (int lap = 0; lap < vectorSize; lap++) {
-		for (int idx = 0; idx < vectorSize - 1; idx++) {
-			if (*this->_myVectorContainer[idx] < *this->_myVectorContainer[idx + 1])
-				this->_myVectorContainer[idx]->swap(*this->_myVectorContainer[idx + 1]);
-		}
-	}
+	// for (int lap = 0; lap < vectorSize; lap++) {
+	// 	for (int idx = 0; idx < vectorSize - 1; idx++) {
+	// 		if (*this->_myVectorContainer[idx] > *this->_myVectorContainer[idx + 1])
+	// 			this->_myVectorContainer[idx]->swap(*this->_myVectorContainer[idx + 1]);
+	// 	}
+	// }
+	
 	return ;
 }
 
@@ -73,6 +74,13 @@ bool	PmergeMe::mergeSingleVector( void ) {
 		return 0;
 	}
 	return 1;
+}
+
+void	PmergeMe::insertPending( void ) {
+	
+	
+	
+	return ;
 }
 
 void	PmergeMe::divideVector(std::vector<int> const & numerator) {
@@ -103,9 +111,9 @@ void	PmergeMe::vectorSortMyNumber( void ) {
 void	PmergeMe::doubleSortMyNumber( void ) {
 	this->vectorSortMyNumber();
 	std::cout << "after:	";
-	// for (int idx = 0; idx < this->_arraySize; idx++) {
-	// 	std::cout << " " << this->_myVector[idx];
-	// }
+	for (int idx = 0; idx < this->_arraySize; idx++) {
+		std::cout << " " << this->_myVector[idx];
+	}
 	for (unsigned int idx = 0; idx < this->_myVectorContainer.size(); idx++) {
 		std::cout << this->_myVectorContainer[idx]->front();
 		if (this->_myVectorContainer[idx]->size() > 1) 
