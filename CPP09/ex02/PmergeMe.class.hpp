@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:51:17 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/04 16:48:42 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/05 18:47:27 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ private:
 
 	void	divideVector(std::vector<int> const & numerator);
 	bool	mergeSingleVector( void );
-	void	sortPairVector( void );
-	void	insertPending(void);
+	void	insertAndSort(std::vector<std::vector<int>*> merge);
+	void	merger( void );
+	void	pushAndSort(std::vector<int> & vec, int num);
 	std::vector<int>				_myVector;
 	std::vector<std::vector<int>* >	_myVectorContainer;
 	int const						_arraySize;

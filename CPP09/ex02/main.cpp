@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:06:37 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/04 16:31:10 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/05 17:29:20 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include <iostream>
 
 int	main( void ) {
-	int			array[7] = {11, 6, 8, 3, 10, 2, 4};
-	PmergeMe	test(array, 7);
+	int			array[10] = {10, 9, 1, 4, 3, 5, 2, 8, 6, 7};
+	PmergeMe	test(array, 10);
 	
 	test.doubleSortMyNumber();
 
