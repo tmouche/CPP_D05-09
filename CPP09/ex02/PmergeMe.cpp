@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:39 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/05 20:10:10 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/06 19:24:13 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,46 +63,28 @@ bool	PmergeMe::mergeSingleVector( void ) {
 	return 1;
 }
 
-void	PmergeMe::pushAndSort(std::vector<int> & vec, int num) {
+void	PmergeMe::binarySearch(std::vector<int> & vec, int num) {
 	int const	size = vec.size();
 	int			idx = size / 2;
 	std::vector<int>::iterator	it;
 
+	// std::cout << "num: " << num << " idx: " << idx << std::endl;
 	if (size == 0) {
 		vec.push_back(num);
+		// std::cout << num << " first pushed" << std::endl;
 		return ;
 	}
 	while (1) {
-		if (vec[idx] >= num) {
-			it = vec.begin();
-			if ((idx > 0 && vec[idx - 1] <= num) || vec[idx] == num) {
-				for (int lap = 0; lap < idx; lap++)
-					it++;
-				vec.insert(it, num);
-				return ;
-			}
-			else if (idx == 0) {
-				vec.insert(it, num);
-				return ;
-			}
-			else
-				idx /= 2;
+		if (idx == 0) {
+			vec.insert(vec.begin(), num);
+			return ;	
 		}
-		else {
-			it = vec.end();
-			if (idx < size - 1 && vec[idx + 1] > num) {
-				for (int lap = size; lap > idx; lap--)
-					it--;
-				vec.insert(it, num);
-				return ;
-			}
-			else if (idx == size - 1) {
-				vec.insert(it, num);
-				return ;
-			}
-			else
-				idx += (idx / 2);
-		}	
+		else if (idx == size - 1) {
+			vec.push_back(num);
+			
+		}
+		if (num >= vec[idx])
+					
 	}
 }
 
@@ -111,16 +93,17 @@ void	PmergeMe::merger( void ) {
 	std::vector<int>*	vectorContainer[2] = {new std::vector<int>(), new std::vector<int>()};
 
 	for (int idx = 0; idx < size; idx++) {
-		pushAndSort(*vectorContainer[0], this->_myVectorContainer[idx]->front());
+		binarySearch(*vectorContainer[0], this->_myVectorContainer[idx]->front());
 		if (this->_myVectorContainer[idx]->size() == 2)
-			pushAndSort(*vectorContainer[1], this->_myVectorContainer[idx]->back());
-		delete this->_myVectorContainer[idx];
+			binarySearch(*vectorContainer[1], this->_myVectorContainer[idx]->back());
+		// delete this->_myVectorContainer[idx];
 	}
 	for (int dec = size; dec > 0; dec--) {
 		this->_myVectorContainer.pop_back();
 	}
 	this->_myVectorContainer.push_back(vectorContainer[0]);
 	this->_myVectorContainer.push_back(vectorContainer[1]);
+	std::cout << "done" << std::endl;
 	return ;
 }
 
@@ -174,15 +157,15 @@ void	PmergeMe::doubleSortMyNumber( void ) {
 	std::cout << std::endl;
 	merger();
 	std::cout << "after merge big: ";
-	for (unsigned int idx = 0; idx < this->_myVectorContainer[0]->size(); idx++) {
-		std::cout << this->_myVectorContainer[0]->back() << ", ";
-		this->_myVectorContainer[0]->pop_back();
+	std::vector<int> temp = *this->_myVectorContainer[0];
+	for (unsigned int idx = 0; idx < temp.size(); idx++) {
+		std::cout << temp[idx] << ", ";
 	}
 	std::cout << std::endl;
 	std::cout << "after merge little: ";
-	for (unsigned int idx = 0; idx < this->_myVectorContainer[1]->size(); idx++) {
-		std::cout << this->_myVectorContainer[1]->back() << ", ";
-		this->_myVectorContainer[1]->pop_back();
+	temp = *this->_myVectorContainer[1];
+	for (unsigned int idx = 0; idx < temp.size(); idx++) {
+		std::cout << temp[idx] << ", ";
 	}
 	std::cout << std::endl;
 	this->_VectorTime = 1;
