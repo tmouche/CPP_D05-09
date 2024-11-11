@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:39 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/06 19:24:13 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/11 20:04:50 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,59 +63,19 @@ bool	PmergeMe::mergeSingleVector( void ) {
 	return 1;
 }
 
-void	PmergeMe::binarySearch(std::vector<int> & vec, int num) {
-	int const	size = vec.size();
-	int			idx = size / 2;
-	std::vector<int>::iterator	it;
+void	PmergeMe::binarySearch(std::vector<int> & container, std::vector<int> & ins) {
+	int	const	num = ins.back();
 
-	// std::cout << "num: " << num << " idx: " << idx << std::endl;
-	if (size == 0) {
-		vec.push_back(num);
-		// std::cout << num << " first pushed" << std::endl;
+	if (ins.size() == 0)
 		return ;
-	}
-	while (1) {
-		if (idx == 0) {
-			vec.insert(vec.begin(), num);
-			return ;	
-		}
-		else if (idx == size - 1) {
-			vec.push_back(num);
-			
-		}
-		if (num >= vec[idx])
-					
-	}
+	
+
+	
 }
 
 void	PmergeMe::merger( void ) {
-	int const	size = this->_myVectorContainer.size();
-	std::vector<int>*	vectorContainer[2] = {new std::vector<int>(), new std::vector<int>()};
 
-	for (int idx = 0; idx < size; idx++) {
-		binarySearch(*vectorContainer[0], this->_myVectorContainer[idx]->front());
-		if (this->_myVectorContainer[idx]->size() == 2)
-			binarySearch(*vectorContainer[1], this->_myVectorContainer[idx]->back());
-		// delete this->_myVectorContainer[idx];
-	}
-	for (int dec = size; dec > 0; dec--) {
-		this->_myVectorContainer.pop_back();
-	}
-	this->_myVectorContainer.push_back(vectorContainer[0]);
-	this->_myVectorContainer.push_back(vectorContainer[1]);
-	std::cout << "done" << std::endl;
-	return ;
 }
-
-// void	PmergeMe::insertAndSort(std::vector<std::vector<int>*> merge) {
-	
-// 	if (merge.front()->size() == 1)
-// 		return ;
-	
-	
-	
-// 	return ;
-// }
 
 void	PmergeMe::divideVector(std::vector<int> const & numerator) {
 	int	const numeratorSize = numerator.size();
