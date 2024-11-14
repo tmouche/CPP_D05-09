@@ -6,20 +6,20 @@
 #    By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:21:22 by thibaud           #+#    #+#              #
-#    Updated: 2024/10/16 16:11:11 by tmouche          ###   ########.fr        #
+#    Updated: 2024/11/14 17:31:44 by tmouche          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS := main.cpp PmergeMe.cpp
 HDRS := PmergeMe.class.hpp
-OBJS := $(SRCS:.c=.o)
+OBJS := $(SRCS:.cpp=.o)
 CFLAGS := -g -Wall -Wextra -Werror -std=c++98
 CC := c++
 NAME := pmergeme
 
 all: $(NAME)
 
-%.o: %.c 
+%.o: %.cpp 
 	${CC} ${CFLAGS} -c $< -o $@
 
 $(NAME): $(OBJS) Makefile $(HDRS)

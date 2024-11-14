@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:39 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/11 20:04:50 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/14 18:22:33 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ PmergeMe::PmergeMe(int const * array, int const arraySize) : _arraySize(arraySiz
 		this->_myVector.push_back(array[idx]);
 	}
 	std::cout << std::endl;
-	// this->_myVectorContainer = new std::vector<std::vector<int>&>();
 	return ;
 }
 
@@ -63,18 +62,28 @@ bool	PmergeMe::mergeSingleVector( void ) {
 	return 1;
 }
 
-void	PmergeMe::binarySearch(std::vector<int> & container, std::vector<int> & ins) {
-	int	const	num = ins.back();
+std::vector<std::vector<int>*>::iterator	PmergeMe::binarySearch(std::vector<std::vector<int>*> & container, int const num, int const start, int const end) {
+	std::vector<std::vector<int>*>::iterator	it = container.begin() + start;
+	int	const										size = end - start + 1;
+	int												idx = start + size / 2;
 
-	if (ins.size() == 0)
-		return ;
-	
-
-	
+	if (size < 1 || start > end)
+		return it;
+	else if (container[idx]->front() > num)
+		return binarySearch(container, num, start, --idx);
+	else if (container[idx]->front() < num)
+		return binarySearch(container, num, ++idx, end);
+	return it + start;
 }
 
 void	PmergeMe::merger( void ) {
+	std::vector<std::vector<int>*>	newContainer;
 
+	while (this->_myVectorContainer.size()) {
+		newContainer.insert(binarySearch(newContainer, this->_myVectorContainer.back()->front(), 0, newContainer.size() - 1), this->_myVectorContainer.back());
+		this->_myVectorContainer.pop_back();
+	}
+	this->_myVectorContainer = newContainer;
 }
 
 void	PmergeMe::divideVector(std::vector<int> const & numerator) {
@@ -116,16 +125,12 @@ void	PmergeMe::doubleSortMyNumber( void ) {
 	}
 	std::cout << std::endl;
 	merger();
-	std::cout << "after merge big: ";
-	std::vector<int> temp = *this->_myVectorContainer[0];
-	for (unsigned int idx = 0; idx < temp.size(); idx++) {
-		std::cout << temp[idx] << ", ";
-	}
-	std::cout << std::endl;
-	std::cout << "after merge little: ";
-	temp = *this->_myVectorContainer[1];
-	for (unsigned int idx = 0; idx < temp.size(); idx++) {
-		std::cout << temp[idx] << ", ";
+	std::cout << "merged and sorted: ";
+	for (unsigned int idx = 0; idx < this->_myVectorContainer.size(); idx++) {
+		std::cout << this->_myVectorContainer[idx]->front();
+		if (this->_myVectorContainer[idx]->size() > 1) 
+			std::cout << ", " << this->_myVectorContainer[idx]->back();
+		std::cout << " | ";
 	}
 	std::cout << std::endl;
 	this->_VectorTime = 1;

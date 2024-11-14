@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:51:17 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/11 19:55:16 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/14 17:26:24 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ private:
 	void	divideVector(std::vector<int> const & numerator);
 	bool	mergeSingleVector( void );
 	void	merger( void );
-	void	binarySearch(std::vector<std::vector<int>*> & container, std::vector<int> const & insert);
+	std::vector<std::vector<int>*>::iterator	binarySearch(std::vector<std::vector<int>*> & container, int const num, int const start, int const end);
+
 	std::vector<int>				_myVector;
 	std::vector<std::vector<int>* >	_myVectorContainer;
 	int const						_arraySize;
