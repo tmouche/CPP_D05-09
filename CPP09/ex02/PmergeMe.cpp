@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 11:53:39 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/14 18:22:33 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/14 20:21:51 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,29 @@ std::vector<std::vector<int>*>::iterator	PmergeMe::binarySearch(std::vector<std:
 		return binarySearch(container, num, start, --idx);
 	else if (container[idx]->front() < num)
 		return binarySearch(container, num, ++idx, end);
-	return it + start;
+	return it + start; //marche po
 }
 
 void	PmergeMe::merger( void ) {
 	std::vector<std::vector<int>*>	newContainer;
+	std::vector<std::vector<int>*>	lastContainer;
 
 	while (this->_myVectorContainer.size()) {
 		newContainer.insert(binarySearch(newContainer, this->_myVectorContainer.back()->front(), 0, newContainer.size() - 1), this->_myVectorContainer.back());
 		this->_myVectorContainer.pop_back();
 	}
-	this->_myVectorContainer = newContainer;
+	int const size = newContainer.size();
+	for (int idx = 0; idx < size; idx++) {
+		std::vector<int>* temp = new std::vector<int>();
+		temp->push_back(newContainer[idx]->front());
+		lastContainer.push_back(temp);
+	}
+	for (int idx = 0; idx < size; idx++) {
+		std::vector<int>* temp = new std::vector<int>();
+		temp->push_back(newContainer[idx]->back());
+		lastContainer.insert(binarySearch(lastContainer, temp->front(), 0, lastContainer.size() - 1), temp);
+	}
+	this->_myVectorContainer = lastContainer;
 }
 
 void	PmergeMe::divideVector(std::vector<int> const & numerator) {
