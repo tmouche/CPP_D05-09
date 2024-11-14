@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AForm.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 21:22:07 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/11 04:34:52 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/14 13:16:34 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ AForm::AForm(std::string name, int gSign, int gExec) : _name(name), _gradeSign(g
 	return ;
 }
 
-AForm::AForm(AForm const & src)  : _name(src._name), _gradeSign(src._gradeSign), _gradeExecute(_gradeExecute) {
+AForm::AForm(AForm const & src)  : _name(src._name), _gradeSign(src._gradeSign), _gradeExecute(src._gradeExecute) {
 	*this = src;
 	return ;
 }

@@ -19,7 +19,7 @@ class Bureaucrat;
 class AForm {
 public :
 	AForm( void );
-	~AForm( void );
+	virtual ~AForm( void );
 	AForm(std::string name, int gradeSign, int gradeExecute);
 	AForm(AForm const & src);
 	
@@ -27,17 +27,17 @@ public :
 
 	class GradeTooHighException {
 	public :
-		virtual const void	what() const throw() {};
+		virtual void	what() const throw() {};
 	};
 
 	class GradeTooLowException {
 	public :
-		virtual const void	what() const throw() {};
+		virtual void	what() const throw() {};
 	};
 
 	class FormNotSigned {
 	public :
-		virtual const void	what() const throw() {};
+		virtual void	what() const throw() {};
 	};
 	
 	std::string	getName( void ) const;

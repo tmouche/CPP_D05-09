@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.class.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 03:10:06 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/09 20:54:59 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/14 11:48:42 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUREAUCRAT_CLASS_HPP
-# define BUREAU_CLASS_HPP
+# define BUREAUCRAT_CLASS_HPP
 # include <string>
 # include <iostream>
 
@@ -25,12 +25,12 @@ public :
 
 	class GradeTooHighException {
 	public :	
-		virtual const void what() const throw() {}
+		virtual void what() const throw() {}
 	};
 
 	class GradeTooLowException {
 	public :	
-		virtual const void what() const throw() {}
+		virtual void what() const throw() {}
 	};
 
 	std::string	getName( void ) const;

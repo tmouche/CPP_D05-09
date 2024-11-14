@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 21:22:07 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/11 04:35:08 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/14 11:50:42 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ Form::Form(std::string name, int gSign, int gExec) : _name(name), _gradeSign(gSi
 	return ;
 }
 
-Form::Form(Form const & src)  : _name(src._name), _gradeSign(src._gradeSign), _gradeExecute(_gradeExecute) {
+Form::Form(Form const & src)  : _name(src._name), _gradeSign(src._gradeSign), _gradeExecute(src._gradeExecute) {
 	*this = src;
 	return ;
 }
