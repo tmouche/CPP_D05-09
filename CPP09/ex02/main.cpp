@@ -6,20 +6,31 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:06:37 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/14 20:22:37 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/18 17:40:32 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PmergeMe.class.hpp"
+#include "PmergeMe.template.hpp"
 #include <iostream>
+#include <vector>
+#include <deque>
 
-int	main( void ) {
-	// int			array[100] = {113, 364, 160, 49, 952, 874, 621, 973, 597, 93, 980, 3, 828, 432, 333, 228, 927, 933, 69, 554, 407, 650, 675, 696, 496, 331, 646, 674, 1000, 439, 642, 350, 159, 247, 394, 578, 928, 169, 19, 287, 525, 947, 429, 711, 737, 705, 763, 505, 9, 992, 774, 476, 117, 689, 236, 637, 771, 740, 86, 334, 110, 275, 138, 610, 808, 156, 470, 399, 149, 335, 833, 15, 956, 64, 12, 931, 140, 50, 471, 899, 617, 669, 563, 688, 358, 262, 415, 684, 499, 294, 537, 477, 745, 377, 915, 510, 639, 870, 314, 586};
-	// PmergeMe	test(array, 100);
+bool	checkData(std::string str, std::string corpus) {
+	for (int idx = 0; str[idx]; idx++) {
+		int idx_corpus;
+		for (idx_corpus = 0; corpus[idx_corpus]; idx_corpus++) {
+			if (str[idx] == corpus[idx_corpus])
+				break ;
+		}
+		if (!corpus[idx_corpus])
+			return false;
+	}
+	return true ;
+}
 
-	int			array[10] = {4, 1, 10, 9, 5, 3, 8, 2, 7, 6};
-	PmergeMe	test(array, 10);
+int	main(int ac, char **av) {
+
+	PmergeMe<std::vector<int> >	test(av);
 	
-	test.doubleSortMyNumber();
 	return 1;
 }
