@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:46:09 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/18 17:53:02 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/19 16:07:45 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,51 @@
 # define PMERGEME_TEMPLATE_HPP
 # include <cstdlib>
 
-template< typename<typename class container, typename T >
+template< typename Nc, typename Sc>
 class PmergeMe {
 public:
 	PmergeMe( void ) {}
 	~PmergeMe( void ) {}
 	PmergeMe(char **data) {
 		for (int idx = 0; data[idx]; idx++) {
-			this->_myType.push_back(std::atoi(data));
+			this->_myType.push_back(std::atoi(data[idx]));
 		}
 		return ;
 	}
+	
 	PmergeMe(PmergeMe const & src) {
+		*this = src;
 		return ;
 	}
 	
 	PmergeMe&	operator=(PmergeMe const & rhs) {
-		return ;
+		if (this != &rhs) {
+			this->_myType = rhs._myType;
+			this->_myTypeContainer = rhs._myTypeContainer;
+		}
+		return *this;
 	}
 
-	T<int>*	SortMyNumbers( void ) {
-		T<int>* res = new T<int>();
+	Sc*	SortMyNumbers( void ) {
+		Sc* res = new Sc();
 	
 		this->divide(this->_myType);
 		while (this->merge());
 		this->insert();
-		int const size = this->_MyTypeContainer.size();
+		int const size = this->_myTypeContainer.size();
 		for (int count = 0; count < size; count++) {
-			res->push_back(this->_myTypeContainer[idx]->front());
+			res->push_back(this->_myTypeContainer[count]->front());
 		}
 		return res;
 	}
 
 private:
-	void	divide(T const & numerator) {
+	void	divide(Sc const & numerator) {
 		int	const numeratorSize = numerator.size();
 
 		if (numeratorSize <= 1)
 			return ;
-		T<int>*	container[2] = {new T<int>(), new T<int>()};
+		Sc*	container[2] = {new Sc(), new Sc()};
 		for (int i = 0; i < numeratorSize; i++) {
 			container[i % 2]->push_back(numerator[i]); 
 		}
@@ -60,17 +66,17 @@ private:
 			this->_myTypeContainer.pop_back();
 		this->_myTypeContainer.push_back(container[0]);
 		divide(*this->_myTypeContainer.back());
-		this->_myVectorContainer.push_back(container[1]);
+		this->_myTypeContainer.push_back(container[1]);
 		divide(*this->_myTypeContainer.back());
 		return ;
 	}
 	
 	bool	merge( void ) {
-		T<int>*	container[2] = {new T<int>(*this->_myTypeContainer.back()), NULL};
+		Sc*	container[2] = {new Sc(*this->_myTypeContainer.back()), NULL};
 
 		this->_myTypeContainer.pop_back();
 		if (this->_myTypeContainer.back()->size() < 2) {
-			container[1] = new T<int>(*this->_myTypeContainer.back());
+			container[1] = new Sc(*this->_myTypeContainer.back());
 			this->_myTypeContainer.pop_back();
 			int	idx = (container[0]->back() - container[1]->back() >= 0 ? 0 : 1);
 			container[idx]->push_back(container[(idx + 1) % 2]->back());
@@ -85,21 +91,21 @@ private:
 	}
 	
 	void	insert( void ) {
-		T<T<int>*>	newContainer;
-		T<T<int>*>	lastContainer;
+		Nc	newContainer;
+		Nc	lastContainer;
 	
 		while (this->_myTypeContainer.size()) {
-			newContainer.insert(binarySearch(newContainer, this->_myVectorContainer.back()->front(), 0, newContainer.size() - 1), this->_myVectorContainer.back());
+			newContainer.insert(binarySearch(newContainer, this->_myTypeContainer.back()->front(), 0, newContainer.size() - 1), this->_myTypeContainer.back());
 			this->_myTypeContainer.pop_back();
 		}
 		int const size = newContainer.size();
 		for (int idx = 0; idx < size; idx++) {
-			T<int>* temp = new T<int>();
+			Sc* temp = new Sc();
 			temp->push_back(newContainer[idx]->front());
 			lastContainer.push_back(temp);
 		}
 		for (int idx = 0; idx < size; idx++) {
-			T<int>* temp = new T<int>();
+			Sc* temp = new Sc();
 			temp->push_back(newContainer[idx]->back());
 			lastContainer.insert(binarySearch(lastContainer, temp->front(), 0, lastContainer.size() - 1), temp);
 		}
@@ -107,8 +113,8 @@ private:
 		return ;
 	}
 	
-	T<T<int>*>::iterator	binarySearch(T<T<int>*> & container, int const num, int const start, int const end) {
-		T<T<int>*>::iterator	it = container.begin() + start;
+	typename Nc::iterator	binarySearch(Nc & container, int const num, int const start, int const end) {
+		typename Nc::iterator	it = container.begin() + start;
 		int	const				size = end - start + 1;
 		int						idx = start + size / 2;
 	
@@ -118,12 +124,11 @@ private:
 			return binarySearch(container, num, start, --idx);
 		else if (container[idx]->front() < num)
 			return binarySearch(container, num, ++idx, end);
-		return it + start;
+		return it + idx; //marche po
 	}
 
-	T<int>		_myType;
-	T<T<int>*>	_myTypeContainer;
-	int const	_Size;
+	Sc			_myType;
+	Nc			_myTypeContainer;
 };
 
 #endif

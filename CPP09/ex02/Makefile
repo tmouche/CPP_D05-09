@@ -6,12 +6,12 @@
 #    By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:21:22 by thibaud           #+#    #+#              #
-#    Updated: 2024/11/14 17:31:44 by tmouche          ###   ########.fr        #
+#    Updated: 2024/11/19 15:20:46 by tmouche          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS := main.cpp PmergeMe.cpp
-HDRS := PmergeMe.class.hpp
+SRCS := main.cpp
+HDRS := PmergeMe.template.hpp
 OBJS := $(SRCS:.cpp=.o)
 CFLAGS := -g -Wall -Wextra -Werror -std=c++98
 CC := c++
