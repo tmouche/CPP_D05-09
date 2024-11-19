@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:46:09 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/19 16:07:45 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/19 16:40:45 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ public:
 
 	Sc*	SortMyNumbers( void ) {
 		Sc* res = new Sc();
-	
+
 		this->divide(this->_myType);
 		while (this->merge());
 		this->insert();
