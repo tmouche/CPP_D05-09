@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:46:09 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/19 16:40:45 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/19 19:19:59 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ public:
 
 	Sc*	SortMyNumbers( void ) {
 		Sc* res = new Sc();
-
 		this->divide(this->_myType);
 		while (this->merge());
 		this->insert();
@@ -56,8 +55,14 @@ private:
 	void	divide(Sc const & numerator) {
 		int	const numeratorSize = numerator.size();
 
-		if (numeratorSize <= 1)
+		if (numeratorSize <= 1) {
+			if (numeratorSize == 1) {
+				Sc*	solo = new Sc();
+				solo->push_back(numerator[0]);
+				this->_myTypeContainer.push_back(solo);
+			}
 			return ;
+		}
 		Sc*	container[2] = {new Sc(), new Sc()};
 		for (int i = 0; i < numeratorSize; i++) {
 			container[i % 2]->push_back(numerator[i]); 
