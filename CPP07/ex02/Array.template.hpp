@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Array.template.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 07:20:33 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/29 18:54:16 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/22 17:01:24 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ public :
 		}
 		return *this;
 	}
-	T&	operator[](int const & rhs) {
+	T&	operator[](unsigned int const & rhs) {
 		if (rhs >= this->_arraySize)
 			throw std::exception();
 		return (this->_myArray[rhs]);

@@ -3,33 +3,39 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+         #
+#    By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:21:22 by thibaud           #+#    #+#              #
-#    Updated: 2024/09/18 13:02:09 by thibaud          ###   ########.fr        #
+#    Updated: 2024/11/22 16:57:44 by tmouche          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS := main.cpp
-HDRS := whatever.template.hpp
-OBJS := $(SRCS:.c=.o)
+HDRS := Whatever.template.hpp
+
+OBJS_D := OBJS/
+OBJS := $(SRCS:%.cpp=$(OBJS_D)%.o)
+
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := c++
-NAME := Template
+NAME := Whatever
 
 all: $(NAME)
 
-%.o: %.c 
+$(NAME): $(OBJS_D) $(OBJS)
+	${CC} $(OBJS) -o $(NAME)
+
+$(OBJS_D)%.o: %.cpp $(HDRS) Makefile
 	${CC} ${CFLAGS} -c $< -o $@
 
-$(NAME): $(OBJS) Makefile $(HDRS)
-	${CC} $(OBJS) -o $(NAME)
+$(OBJS_D):
+	@mkdir -p $(OBJS_D)
 
 clean:
 	rm -f $(NAME)
 
 fclean: clean
-	rm -f *.o
+	rm -rf $(OBJS_D)
 
 re: fclean all
 

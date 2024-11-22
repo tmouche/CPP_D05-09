@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 10:25:24 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/18 10:27:01 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/22 16:57:25 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "whatever.template.hpp"
+#include "Whatever.template.hpp"
 #include <iostream>
 
 int	main( void ) {
