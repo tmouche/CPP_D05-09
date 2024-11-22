@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:46:09 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/19 19:19:59 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/22 21:13:19 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ private:
 		}
 		for (int idx = 0; idx < size; idx++) {
 			Sc* temp = new Sc();
-			temp->push_back(newContainer[idx]->back());
+			temp->push_back(newContainer[this->jacobsthalIdx(idx)]->back());
 			lastContainer.insert(binarySearch(lastContainer, temp->front(), 0, lastContainer.size() - 1), temp);
 		}
 		this->_myTypeContainer = lastContainer;
@@ -132,8 +132,14 @@ private:
 		return it + idx; //marche po
 	}
 
+	int	jacobsthalIdx(int const idx) {
+		for (int localIdx = 0; idx > this->_jacobsthal[localIdx]; idx++);
+		if ()
+	}
+
 	Sc			_myType;
 	Nc			_myTypeContainer;
+	int	const	_jacobsthal[15] = {0, 1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923}
 };
 
 #endif
