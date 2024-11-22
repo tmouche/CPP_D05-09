@@ -20,7 +20,7 @@ public :
 
 	class	NoConvertionException {
 	public :
-		virtual const void	what() const throw() {};
+		virtual void	what() const throw() {};
 	};
 
 private :

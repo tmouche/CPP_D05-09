@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   CharConverter.class.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:00:08 by tmouche           #+#    #+#             */
-/*   Updated: 2024/09/17 05:24:04 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/22 15:39:49 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ public :
 
 	class	NoConvertionException {
 	public :
-		virtual const void	what() const throw() {};
+		virtual void	what() const throw() {};
 	};
 
 	class	NoDisplayableException {
 	public :
-		virtual const void	what() const throw() {};
+		virtual void	what() const throw() {};
 	};
 
 private :

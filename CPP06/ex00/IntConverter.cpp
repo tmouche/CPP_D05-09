@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   IntConverter.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:04:18 by tmouche           #+#    #+#             */
-/*   Updated: 2024/09/17 06:56:19 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/22 16:23:59 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "IntConverter.class.hpp"
 #include <iostream>
-#include <cmath>
+#include <cstdlib>
 
 IntConverter::IntConverter( void ) {
 	return ;
@@ -28,6 +28,8 @@ IntConverter::IntConverter(IntConverter const & src) {
 }
 
 IntConverter&	IntConverter::operator=(IntConverter const & rhs) {
+	if (this != &rhs)
+		return *this;
 	return *this;
 }
 
@@ -35,7 +37,7 @@ int	IntConverter::converter(std::string const src) {
 	int				intConverted;
 
 	try {
-		intConverted = std::stoi(src);
+		intConverted = std::atoi(src.c_str());
 	}
 	catch (std::invalid_argument const & e) {
 		throw IntConverter::NoConvertionException();

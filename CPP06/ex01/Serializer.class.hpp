@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   Serializer.class.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 04:29:21 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/18 04:53:51 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/22 16:40:54 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SERIALIZER_CLASS_HPP
 # define SERIALIZER_CLASS_HPP
 # include "Data.struct.hpp"
-# include <cstdint>
+# include <stdint.h>
 
 class Serializer {
 public :

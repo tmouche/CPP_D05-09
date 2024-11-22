@@ -13,7 +13,7 @@
 #include "DoubleConverter.class.hpp"
 #include <iostream>
 #include <limits>
-#include <cmath>
+#include <cstdlib>
 
 DoubleConverter::DoubleConverter( void ) {
 	return ;
@@ -29,6 +29,8 @@ DoubleConverter::DoubleConverter(DoubleConverter const & src) {
 }
 
 DoubleConverter&	DoubleConverter::operator=(DoubleConverter const & rhs) {
+	if (this != &rhs)
+		return *this;
 	return *this;
 }
 
@@ -36,7 +38,7 @@ double	DoubleConverter::converter(std::string const src) {
 	double				doubleConverted;
 
 	try {
-		doubleConverted = std::stod(src);
+		doubleConverted = std::atof(src.c_str());
 	}
 	catch (std::invalid_argument const & e) {
 		throw DoubleConverter::NoConvertionException();

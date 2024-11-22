@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   CharConverter.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:04:18 by tmouche           #+#    #+#             */
-/*   Updated: 2024/09/17 06:59:00 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/22 16:23:41 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "CharConverter.class.hpp"
 #include <iostream>
+#include <cstdlib>
 
 CharConverter::CharConverter( void ) {
 	return ;
@@ -27,6 +28,8 @@ CharConverter::CharConverter(CharConverter const & src) {
 }
 
 CharConverter&	CharConverter::operator=(CharConverter const & rhs) {
+	if (this != &rhs)
+		return *this;
 	return *this;
 }
 
@@ -35,7 +38,7 @@ char	CharConverter::converter(std::string const src){
 	char	c;
 
 	try {
-		intConverted = std::stoi(src);
+		intConverted = std::atoi(src.c_str());
 	}
 	catch (std::invalid_argument const & e) {
 		throw CharConverter::NoConvertionException();

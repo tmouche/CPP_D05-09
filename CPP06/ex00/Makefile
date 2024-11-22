@@ -3,33 +3,39 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+         #
+#    By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:21:22 by thibaud           #+#    #+#              #
-#    Updated: 2024/11/14 14:35:34 by tmouche          ###   ########.fr        #
+#    Updated: 2024/11/22 16:26:11 by tmouche          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS := main.cpp ScalarConverter.cpp CharConverter.cpp IntConverter.cpp FloatConverter.cpp DoubleConverter.cpp
-HDRS := ScalarConverter.class.hpp CharConverter.class.hpp IntConverter.class.hpp FloatConverter.class.hpp DoubleConverter.class.hpp
-OBJS := $(SRCS:.cpp=.o)
+SRCS := main.cpp ScalarConverter.cpp CharConverter.cpp DoubleConverter.cpp FloatConverter.cpp IntConverter.cpp
+HDRS := ScalarConverter.class.hpp CharConverter.class.hpp DoubleConverter.class.hpp FloatConverter.class.hpp IntConverter.class.hpp
+
+OBJS_D := OBJS/
+OBJS := $(SRCS:%.cpp=$(OBJS_D)%.o)
+
 CFLAGS := -Wall -Wextra -Werror -std=c++98
 CC := c++
-NAME := ScalarConverter
+NAME := Converter
 
 all: $(NAME)
 
-%.o: %.cpp 
-	${CC}  -c $< -o $@
-
-$(NAME): $(OBJS) Makefile $(HDRS)
+$(NAME): $(OBJS_D) $(OBJS)
 	${CC} $(OBJS) -o $(NAME)
 
+$(OBJS_D)%.o: %.cpp $(HDRS) Makefile
+	${CC} ${CFLAGS} -c $< -o $@
+
+$(OBJS_D):
+	@mkdir -p $(OBJS_D)
+
 clean:
-	rm -f $(NAME) Home_shrubbery
+	rm -f $(NAME)
 
 fclean: clean
-	rm -f *.o
+	rm -rf $(OBJS_D)
 
 re: fclean all
 

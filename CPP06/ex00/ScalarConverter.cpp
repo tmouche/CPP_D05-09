@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:24:54 by tmouche           #+#    #+#             */
-/*   Updated: 2024/09/17 06:52:57 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/22 16:15:31 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ ScalarConverter::ScalarConverter(ScalarConverter const & src) {
 }
 
 ScalarConverter&	ScalarConverter::operator=(ScalarConverter const & rhs) {
+	if (this != &rhs)
+		return *this;
 	return *this;
 }
 

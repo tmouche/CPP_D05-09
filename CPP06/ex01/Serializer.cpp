@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Serializer.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 04:36:59 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/18 04:48:47 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/22 16:41:52 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ Serializer::Serializer(Serializer const & src) {
 }
 
 Serializer&	Serializer::operator=(Serializer const & rhs) {
+	if (this != &rhs)
+		return *this;
 	return *this;
 }
 

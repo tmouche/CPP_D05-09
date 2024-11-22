@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 05:30:12 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/18 06:30:29 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/22 16:50:37 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+#include <exception>
 
 Base*	generate( void ) {
 	int	random;
@@ -55,17 +56,17 @@ void	identify(Base* p) {
 
 void	identify(Base& p) {
 	try {
-		A&	refACast = dynamic_cast<A&>(p);
+		dynamic_cast<A&>(p);
 	}
-	catch (std::bad_cast const & e) {
+	catch (...) {
 		try {
-			B&	refBCast = dynamic_cast<B&>(p);
+			dynamic_cast<B&>(p);
 		}
-		catch (std::bad_cast const & e) {
+		catch (...) {
 			try {
-				C&	refBCast = dynamic_cast<C&>(p);
+				dynamic_cast<C&>(p);
 			}
-			catch (std::bad_cast const & e) {
+			catch (...) {
 				std::cout << "Unrecognized type" << std::endl;
 				return ;
 			}

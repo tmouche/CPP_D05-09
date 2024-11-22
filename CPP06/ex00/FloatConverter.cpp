@@ -14,7 +14,7 @@
 #include <iostream>
 #include <iomanip>
 #include <ios>
-#include <cmath>
+#include <cstdlib>
 
 FloatConverter::FloatConverter( void ) {
 	return ;
@@ -30,6 +30,8 @@ FloatConverter::FloatConverter(FloatConverter const & src) {
 }
 
 FloatConverter&	FloatConverter::operator=(FloatConverter const & rhs) {
+	if (this != &rhs)
+		return *this;
 	return *this;
 }
 
@@ -37,7 +39,7 @@ float	FloatConverter::converter(std::string const src) {
 	float				floatConverted;
 
 	try {
-		floatConverted = std::stof(src);
+		floatConverted = std::atof(src.c_str());
 	}
 	catch (std::invalid_argument const & e) {
 		throw FloatConverter::NoConvertionException();
