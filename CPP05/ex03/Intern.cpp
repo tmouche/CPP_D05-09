@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Intern.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 17:19:19 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/11 18:39:36 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/22 15:34:28 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ Intern::Intern(Intern const & src) {
 }
 
 Intern& Intern::operator=(Intern const & rhs) {
+	if (this != &rhs)
+		return *this;
 	return *this;
 }
 

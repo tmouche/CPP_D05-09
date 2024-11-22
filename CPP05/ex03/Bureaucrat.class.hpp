@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.class.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 03:10:06 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/11 16:34:12 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/22 15:25:38 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ public :
 
 	class GradeTooHighException {
 	public :	
-		virtual const void what() const throw() {}
+		virtual void what() const throw() {}
 	};
 
 	class GradeTooLowException {
 	public :	
-		virtual const void what() const throw() {}
+		virtual void what() const throw() {}
 	};
 
 	std::string	getName( void ) const;

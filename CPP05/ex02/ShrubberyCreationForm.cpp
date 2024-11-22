@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ShrubberyCreationForm.cpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 03:56:19 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/11 16:55:58 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/22 15:11:49 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm("Shrubb
 	return ;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const & src) {
+ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const & src) : AForm(src.getName(), src.getGradeSign(), src.getGradeExecute()) {
 	*this = src;
 	return ;
 }
@@ -45,7 +45,7 @@ void	ShrubberyCreationForm::execute(Bureaucrat const & executor) const {
   	throw AForm::GradeTooLowException();
   else if (this->getSigned() == false)
   	throw AForm::FormNotSigned();
-  std::ofstream	ofs(this->_target + "_shrubbery");
+  std::ofstream	ofs((this->_target + "_shrubbery").c_str());
   ofs << "TREE IN ASCII";
   ofs.close();
   std::cout << executor.getName() << " executed " << this->getName() << std::endl;

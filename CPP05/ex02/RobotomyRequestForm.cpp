@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RobotomyRequestForm.cpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 04:12:22 by thibaud           #+#    #+#             */
-/*   Updated: 2024/09/11 18:40:03 by thibaud          ###   ########.fr       */
+/*   Updated: 2024/11/22 15:10:16 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("RobotomyRe
 	return ;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const & src) {
+RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const & src) : AForm(src.getName(), src.getGradeSign(), src.getGradeExecute()) {
 	*this = src;
 	return ;
 }
@@ -39,7 +39,7 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(RobotomyRequestForm const & 
 }
 
 void	RobotomyRequestForm::execute(Bureaucrat const & executor) const {
-	std::time_t	time = std::time({});
+	std::time_t	time = std::time(NULL);
 	char		str[4];
 
 	if (executor.getGrade() > this->getGradeSign()
