@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Easyfind.template.hpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 11:14:15 by tmouche           #+#    #+#             */
-/*   Updated: 2024/09/24 13:19:29 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/22 17:05:44 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 template< typename T >
 bool	easyFind(T const & container, int base) {
-	typename T::const_iterator(it);
+	typename T::const_iterator	it;
 	
 	for (it = container.begin(); it != container.end(); it++) {
 		if (*it == base)
