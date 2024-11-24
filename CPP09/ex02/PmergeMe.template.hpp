@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:46:09 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/24 18:04:28 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/24 19:08:41 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ private:
 			if (newContainer[idx]->size() == 2) {
 				Sc* temp = new Sc();
 				temp->push_back(newContainer[this->jacobsthalIdx(idx, size - 1)]->back());
-				// temp->push_back(newContainer[idx]->back());
 				lastContainer.insert(binarySearch(lastContainer, temp->front(), 0, lastContainer.size() - 1), temp);
 			}
 		}
@@ -155,17 +154,14 @@ private:
 		int localIdx;
 
 		for (localIdx = 0; idx > this->_jacobsthal[localIdx]; localIdx++);
-		if (localIdx == 0) {
-			// std::cout << "0" << std::endl;
+		if (localIdx == 0)
 			return 0;
-		}
 		int max;
 		if (this->_jacobsthal[localIdx] > size)
 			max = size;
 		else
 			max = this->_jacobsthal[localIdx];
 		int const res = max - (idx - this->_jacobsthal[localIdx - 1] - 1);
-		// std::cout << res << std::endl;
 		return (res);
 	}
 

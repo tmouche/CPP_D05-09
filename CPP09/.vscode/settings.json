@@ -3,6 +3,13 @@
 		".tpp": "cpp",
 		"random": "cpp",
 		"limits": "cpp",
-		"algorithm": "cpp"
+		"algorithm": "cpp",
+		"array": "cpp",
+		"deque": "cpp",
+		"vector": "cpp",
+		"string_view": "cpp",
+		"ranges": "cpp",
+		"span": "cpp",
+		"ostream": "cpp"
 	}
 }
