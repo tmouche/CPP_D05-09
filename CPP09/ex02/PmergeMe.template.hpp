@@ -6,13 +6,14 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:46:09 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/22 21:13:19 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/24 18:04:28 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PMERGEME_TEMPLATE_HPP
 # define PMERGEME_TEMPLATE_HPP
 # include <cstdlib>
+# include <iostream>
 
 template< typename Nc, typename Sc>
 class PmergeMe {
@@ -23,6 +24,7 @@ public:
 		for (int idx = 0; data[idx]; idx++) {
 			this->_myType.push_back(std::atoi(data[idx]));
 		}
+		this->_comp = 0;
 		return ;
 	}
 	
@@ -42,12 +44,14 @@ public:
 	Sc*	SortMyNumbers( void ) {
 		Sc* res = new Sc();
 		this->divide(this->_myType);
-		while (this->merge());
+		while (this->merge())
+			;
 		this->insert();
 		int const size = this->_myTypeContainer.size();
 		for (int count = 0; count < size; count++) {
 			res->push_back(this->_myTypeContainer[count]->front());
 		}
+		std::cout << "For " << this->_comp << "comparisons" << std::endl;
 		return res;
 	}
 
@@ -56,11 +60,6 @@ private:
 		int	const numeratorSize = numerator.size();
 
 		if (numeratorSize <= 1) {
-			if (numeratorSize == 1) {
-				Sc*	solo = new Sc();
-				solo->push_back(numerator[0]);
-				this->_myTypeContainer.push_back(solo);
-			}
 			return ;
 		}
 		Sc*	container[2] = {new Sc(), new Sc()};
@@ -98,7 +97,7 @@ private:
 	void	insert( void ) {
 		Nc	newContainer;
 		Nc	lastContainer;
-	
+	                                                                                                                                              
 		while (this->_myTypeContainer.size()) {
 			newContainer.insert(binarySearch(newContainer, this->_myTypeContainer.back()->front(), 0, newContainer.size() - 1), this->_myTypeContainer.back());
 			this->_myTypeContainer.pop_back();
@@ -110,9 +109,12 @@ private:
 			lastContainer.push_back(temp);
 		}
 		for (int idx = 0; idx < size; idx++) {
-			Sc* temp = new Sc();
-			temp->push_back(newContainer[this->jacobsthalIdx(idx)]->back());
-			lastContainer.insert(binarySearch(lastContainer, temp->front(), 0, lastContainer.size() - 1), temp);
+			if (newContainer[idx]->size() == 2) {
+				Sc* temp = new Sc();
+				temp->push_back(newContainer[this->jacobsthalIdx(idx, size - 1)]->back());
+				// temp->push_back(newContainer[idx]->back());
+				lastContainer.insert(binarySearch(lastContainer, temp->front(), 0, lastContainer.size() - 1), temp);
+			}
 		}
 		this->_myTypeContainer = lastContainer;
 		return ;
@@ -125,21 +127,55 @@ private:
 	
 		if (size < 1 || start > end)
 			return it;
-		else if (container[idx]->front() > num)
+		else if (container[idx]->front() > num) {
+			++this->_comp;
 			return binarySearch(container, num, start, --idx);
-		else if (container[idx]->front() < num)
+		}
+		else if (container[idx]->front() < num) {
+			++this->_comp;
 			return binarySearch(container, num, ++idx, end);
+		}
 		return it + idx; //marche po
 	}
 
-	int	jacobsthalIdx(int const idx) {
-		for (int localIdx = 0; idx > this->_jacobsthal[localIdx]; idx++);
-		if ()
+	void	printer(Nc container) {
+		int const	size = container.size();
+		std::cout << "after merge:";
+		for (int idx = 0; idx < size; idx++) {
+			std::cout << " " << container[idx]->front();
+			if (container[idx]->size() == 2)
+				std::cout << " " << container[idx]->back();
+			std::cout << " |";
+		}
+		std::cout << std::endl;
+		return ;
+	}
+	
+	int	jacobsthalIdx(int const idx, int const size) {
+		int localIdx;
+
+		for (localIdx = 0; idx > this->_jacobsthal[localIdx]; localIdx++);
+		if (localIdx == 0) {
+			// std::cout << "0" << std::endl;
+			return 0;
+		}
+		int max;
+		if (this->_jacobsthal[localIdx] > size)
+			max = size;
+		else
+			max = this->_jacobsthal[localIdx];
+		int const res = max - (idx - this->_jacobsthal[localIdx - 1] - 1);
+		// std::cout << res << std::endl;
+		return (res);
 	}
 
-	Sc			_myType;
-	Nc			_myTypeContainer;
-	int	const	_jacobsthal[15] = {0, 1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923}
+	int					_comp;
+	Sc					_myType;
+	Nc					_myTypeContainer;
+	static int const	_jacobsthal[15];
 };
+
+template< typename Nc, typename Sc>
+const int PmergeMe<Nc, Sc>::_jacobsthal[15] = {0, 1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923};
 
 #endif
