@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:06:37 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/24 18:25:44 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/25 17:08:53 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int	main(int ac, char **av) {
 		std::cout << "Bad Argument" << std::endl;
 		return 1;
 	}
-	// std::cout << "Before:";
-	// for (int idx = 1; idx < ac; idx++)
-	// 	std::cout << " " << av[idx];
-	// std::cout << std::endl;
+	std::cout << "Before:";
+	for (int idx = 1; idx < ac; idx++)
+		std::cout << " " << av[idx];
+	std::cout << std::endl;
 	struct timeval	sw;
 	gettimeofday(&sw, NULL);
 	size_t const preV = sw.tv_usec;
@@ -48,12 +48,12 @@ int	main(int ac, char **av) {
 	std::vector<int> resVector = *testVector.SortMyNumbers();
 	gettimeofday(&sw, NULL);
 	size_t const postV = sw.tv_usec;
-	// int const	sizeVector = resVector.size();
-	// std::cout << "After:";
-	// for (int idx = 0; idx < sizeVector; idx++) {
-	// 	std::cout << " "<< resVector[idx];
-	// }
-	// std::cout << std::endl;
+	int const	sizeVector = resVector.size();
+	std::cout << "After:";
+	for (int idx = 0; idx < sizeVector; idx++) {
+		std::cout << " "<< resVector[idx];
+	}
+	std::cout << std::endl;
 	std::cout << "Time to process a range of " << ac - 1 << " elements with std::vector: " << static_cast<float>(postV - preV) / 100000 << "us" << std::endl;
 	
 	gettimeofday(&sw, NULL);

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.class.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 03:10:06 by thibaud           #+#    #+#             */
-/*   Updated: 2024/11/22 15:25:38 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/25 17:24:37 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUREAUCRAT_CLASS_HPP
-# define BUREAU_CLASS_HPP
+# define BUREAUCRAT_CLASS_HPP
 # include <string>
 # include <iostream>
 

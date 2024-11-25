@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:46:09 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/24 19:08:41 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/25 17:09:57 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ public:
 		for (int count = 0; count < size; count++) {
 			res->push_back(this->_myTypeContainer[count]->front());
 		}
-		std::cout << "For " << this->_comp << "comparisons" << std::endl;
 		return res;
 	}
 
@@ -134,7 +133,7 @@ private:
 			++this->_comp;
 			return binarySearch(container, num, ++idx, end);
 		}
-		return it + idx; //marche po
+		return it + idx;
 	}
 
 	void	printer(Nc container) {
