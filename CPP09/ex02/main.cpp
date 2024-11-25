@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:06:37 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/25 17:08:53 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/25 19:44:36 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	checkData(char **data, std::string corpus) {
 				return false;
 		}
 	}
-	return true ;
+	return true;
 }
 
 int	main(int ac, char **av) {
