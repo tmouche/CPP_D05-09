@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 05:30:12 by thibaud           #+#    #+#             */
-/*   Updated: 2024/11/22 16:50:37 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/25 19:12:09 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ Base*	generate( void ) {
 }
 
 void	identify(Base* p) {
-	Base const *	const tab[3] = {dynamic_cast<A*>(p), dynamic_cast<B*>(p), dynamic_cast<C*>(p)};
+	Base const *	const tab[3] = {static_cast<A*>(p), static_cast<B*>(p), static_cast<C*>(p)};
 	int				idx;
 
 	for (idx = 0; idx < 3 && !tab[idx]; idx++);
@@ -54,30 +54,31 @@ void	identify(Base* p) {
 	return ;
 }
 
-void	identify(Base& p) {
+Base &	identify(Base& p) {
+
 	try {
-		dynamic_cast<A&>(p);
+		A & res = dynamic_cast<A&>(p);
+		std::cout << "The actual type is A" << std::endl;
+		return res;
 	}
 	catch (...) {
 		try {
-			dynamic_cast<B&>(p);
+			B & res = dynamic_cast<B&>(p);
+			std::cout << "The actual type is B" << std::endl;
+			return res;
 		}
 		catch (...) {
 			try {
-				dynamic_cast<C&>(p);
+				C & res = dynamic_cast<C&>(p);
+				std::cout << "The actual type is C" << std::endl;
+				return res;
 			}
 			catch (...) {
 				std::cout << "Unrecognized type" << std::endl;
-				return ;
+				return p;
 			}
-			std::cout << "The actual type is C" << std::endl;
-			return ;
 		}
-		std::cout << "The actual type is B" << std::endl;
-		return ;
 	}
-	std::cout << "The actual type is A" << std::endl;
-	return ;
 }
 
 int	main( void ) {

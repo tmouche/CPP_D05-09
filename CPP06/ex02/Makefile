@@ -3,40 +3,58 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+         #
+#    By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:21:22 by thibaud           #+#    #+#              #
-#    Updated: 2024/11/22 16:51:26 by tmouche          ###   ########.fr        #
+#    Updated: 2024/11/25 18:25:15 by tmouche          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS := main.cpp
-HDRS := Base.class.hpp A.class.hpp B.class.hpp C.class.hpp
+NAME		= RealType
 
-OBJS_D := OBJS/
-OBJS := $(SRCS:%.cpp=$(OBJS_D)%.o)
+HEADER		=	hdrs/
+SRCS_DIR	=	srcs/
+OBJS_DIR	=	.objs/
+DEPS_DIR	=	.deps/
+SRCS		=	main.cpp
 
-CFLAGS := -Wall -Wextra -Werror -std=c++98
-CC := c++
-NAME := Base
+
+OBJS		= $(SRCS:%.cpp=$(OBJS_DIR)%.o)
+DEPS		= $(SRCS:%.cpp=$(DEPS_DIR)%.d)
+
+CC		= c++
+CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 -I $(HEADER)
+DFLAGS	= -MMD -MP -MT $@ -MF $(DEPS_DIR)$*.d
+RM		= rm -rf
+
+-include $(DEPS)
+
+.DEFAULT_GOAL = all
 
 all: $(NAME)
 
-$(NAME): $(OBJS_D) $(OBJS)
-	${CC} $(OBJS) -o $(NAME)
+run: all
+	./$(NAME)
 
-$(OBJS_D)%.o: %.cpp $(HDRS) Makefile
-	${CC} ${CFLAGS} -c $< -o $@
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) && echo "$(END)$(GREEN)\n* $(NAME) compilation completed !!!\n$(END)"
 
-$(OBJS_D):
-	@mkdir -p $(OBJS_D)
+$(OBJS_DIR):
+	mkdir -p $(OBJS_DIR)
+$(DEPS_DIR):
+	mkdir -p $(DEPS_DIR)
+
+$(OBJS): $(OBJS_DIR)%.o: $(SRCS_DIR)%.cpp | $(OBJS_DIR) $(DEPS_DIR)
+	$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ && echo "  $@" 
 
 clean:
-	rm -f $(NAME)
+		$(RM) $(OBJS_DIR) $(DEPS_DIR) && echo "$(RED) * object cleared...$(END)"
 
 fclean: clean
-	rm -rf $(OBJS_D)
+		$(RM) $(NAME) && $(RM) $(DIR_BUILD) $(OBJS_DIR) $(DEPS_DIR) && echo "$(RED) * $(NAME) is fully cleared...$(END)"
 
-re: fclean all
+re: fclean
+	$(MAKE) all
 
-.PHONY: all clean fclean re
+.SILENT:
+.PHONY: all clean fclean re oops slay dir run
