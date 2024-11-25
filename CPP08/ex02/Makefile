@@ -6,11 +6,11 @@
 #    By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:21:22 by thibaud           #+#    #+#              #
-#    Updated: 2024/11/25 19:35:07 by tmouche          ###   ########.fr        #
+#    Updated: 2024/11/25 19:28:45 by tmouche          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= Easyfind
+NAME		= Whatever
 
 HEADER		=	hdrs/
 SRCS_DIR	=	srcs/
