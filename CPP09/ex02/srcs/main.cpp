@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:06:37 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/25 19:44:36 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/26 16:26:05 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ int	main(int ac, char **av) {
 	std::vector<int> resVector = *testVector.SortMyNumbers();
 	gettimeofday(&sw, NULL);
 	size_t const postV = sw.tv_usec;
-	int const	sizeVector = resVector.size();
 	std::cout << "After:";
-	for (int idx = 0; idx < sizeVector; idx++) {
+	for (int idx = 0; idx < ac - 1; idx++) {
 		std::cout << " "<< resVector[idx];
 	}
 	std::cout << std::endl;
