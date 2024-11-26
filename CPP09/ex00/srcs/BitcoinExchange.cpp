@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 10:32:40 by tmouche           #+#    #+#             */
-/*   Updated: 2024/10/14 16:08:35 by tmouche          ###   ########.fr       */
+/*   Updated: 2024/11/26 16:34:20 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int		BitcoinExchange::dateToIdx(int const dateConverted) const {
 	if (dateConverted > this->_dataBaseDate[idx])
 		--idx;
 	return idx;
-}
+}	
 
 void	BitcoinExchange::lineValue(std::string line) {
 	std::string	temp;

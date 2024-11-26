@@ -3,34 +3,58 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+         #
+#    By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:21:22 by thibaud           #+#    #+#              #
-#    Updated: 2024/10/10 20:31:56 by thibaud          ###   ########.fr        #
+#    Updated: 2024/11/26 16:28:58 by tmouche          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS := main.cpp BitcoinExchange.cpp
-HDRS := BitcoinExchange.class.hpp
-OBJS := $(SRCS:.c=.o)
-CFLAGS := -g #-Wall -Wextra -Werror -std=c++98
-CC := c++
-NAME := btc
+NAME		= RPN
+
+HEADER		=	hdrs/
+SRCS_DIR	=	srcs/
+OBJS_DIR	=	.objs/
+DEPS_DIR	=	.deps/
+SRCS		=	main.cpp BitcoinExchange.cpp
+
+
+OBJS		= $(SRCS:%.cpp=$(OBJS_DIR)%.o)
+DEPS		= $(SRCS:%.cpp=$(DEPS_DIR)%.d)
+
+CC		= c++
+CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 -I $(HEADER)
+DFLAGS	= -MMD -MP -MT $@ -MF $(DEPS_DIR)$*.d
+RM		= rm -rf
+
+-include $(DEPS)
+
+.DEFAULT_GOAL = all
 
 all: $(NAME)
 
-%.o: %.c 
-	${CC} ${CFLAGS} -c $< -o $@
+run: all
+	./$(NAME)
 
-$(NAME): $(OBJS) Makefile $(HDRS)
-	${CC} ${CFLAGS} $(OBJS) -o $(NAME)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) && echo "$(END)$(GREEN)\n* $(NAME) compilation completed !!!\n$(END)"
+
+$(OBJS_DIR):
+	mkdir -p $(OBJS_DIR)
+$(DEPS_DIR):
+	mkdir -p $(DEPS_DIR)
+
+$(OBJS): $(OBJS_DIR)%.o: $(SRCS_DIR)%.cpp | $(OBJS_DIR) $(DEPS_DIR)
+	$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ && echo "  $@" 
 
 clean:
-	rm -f $(NAME)
+		$(RM) $(OBJS_DIR) $(DEPS_DIR) && echo "$(RED) * object cleared...$(END)"
 
 fclean: clean
-	rm -f *.o
+		$(RM) $(NAME) && $(RM) $(DIR_BUILD) $(OBJS_DIR) $(DEPS_DIR) && echo "$(RED) * $(NAME) is fully cleared...$(END)"
 
-re: fclean all
+re: fclean
+	$(MAKE) all
 
-.PHONY: all clean fclean re
+.SILENT:
+.PHONY: all clean fclean re oops slay dir run
