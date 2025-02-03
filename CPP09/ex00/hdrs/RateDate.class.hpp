@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   RateDate.class.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 10:12:30 by tmouche           #+#    #+#             */
-/*   Updated: 2024/10/12 19:25:19 by tmouche          ###   ########.fr       */
+/*   Created: 2025/02/03 18:42:10 by tmouche           #+#    #+#             */
+/*   Updated: 2025/02/03 19:05:14 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "BitcoinExchange.class.hpp"
-#include <iostream>
+#ifndef RATEDATE_CLASS_HPP
+# define RATEDATE_CLASS_HPP
 
-int	main(int ac, char **av) {
-	BitcoinExchange	testClass;
+class RateDate {
+public:
+	RateDate( void );
+	RateDate(int& year, int& month, int& day);
+	RateDate(RateDate const & src);
+	~RateDate( void );
+	
+	RateDate&	operator=(RateDate const & rhs);
+	bool		operator<(RateDate const & rhs);
+	
+	int	const	year;
+	int	const	month;
+	int	const	day;
+};
 
-	if (ac != 2) {
-		std::cout << "Error: wrong argument" << std::endl;
-		return 1;
-	}
-	try {testClass.valueMyWallet(av[1], "data.csv");}
-	catch (BitcoinExchange::FileException& e) {e.what();}
-	return 0;
-}
+#endif

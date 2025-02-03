@@ -5,72 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 10:17:29 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/26 16:41:00 by tmouche          ###   ########.fr       */
+/*   Created: 2025/02/03 16:43:36 by tmouche           #+#    #+#             */
+/*   Updated: 2025/02/03 21:36:20 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BITCOINEXCHANGE_CLASS_HPP
 # define BITCOINEXCHANGE_CLASS_HPP
-# include <vector>
+# include <map>
 # include <string>
-#include <iostream>
+# include "RateDate.class.hpp"
 
 class BitcoinExchange {
-public : 
+public:
 	BitcoinExchange( void );
 	~BitcoinExchange( void );
+	BitcoinExchange(std::string const & dbFile);
 	BitcoinExchange(BitcoinExchange const & src);
-
+	
 	BitcoinExchange&	operator=(BitcoinExchange const & rhs);
 
-	void	valueMyWallet(std::string inFile, std::string dataFile);
-
-	class	Exception {
-	public :
-		virtual const void	what( void ) const throw() {}
-	};
+	void	valorise(std::string const & walletFile);
 	
-	class	inputException {
-	public :
-		virtual const void	what(std::string input) const throw() {
-			std::cout << "Error: bad input => " << input << std::endl;
-		}
-	};
+private:
+	void	chargeDb( void );
 
-	class	TooLargeValueException {
-	public :
-		virtual const void	what( void ) const throw() {
-			std::cout << "Error: too large number." << std::endl;
-		};
-	};
+	std::map<RateDate&, float>	_dataBase;
 
-	class	NegativeValueException {
-	public :
-		virtual const void	what( void ) const throw() {
-			std::cout << "Error: not a positive number." << std::endl;
-		};
-	};
+	std::string const	_dbFile;
+
+	typedef struct	s_ssPart {
+		int		year;
+		int		month;
+		int		day;
+		char	dash[2];
+		char	coma;
+	}	t_ssPart;
 	
-	class	FileException {
-	public :
-		virtual const void	what( void ) const throw() {
-			perror("Error");
-		}
-	};
+	void	checkPart(t_ssPart&	part);
+	void	checkDate(RateDate& date);
 
-private :
-	void	dataLoader(std::string dataFile);
-	int		convertDate(std::string date) const;
-	bool	checkString(std::string const seed, std::string const data, std::string const corpus) const;
-	int		dateToIdx(int const dateConverted) const;
-	void	lineValue(std::string line);
-	
-	std::vector<float>_dataBaseDate;
-	std::vector<float>_dataBaseRate;
-
-	static int const	_month[12];
-	static int const	_monthLeap[12];
+	static unsigned short	_month[12];
+	static unsigned short	_monthLeap[12];
 };
 
 #endif
