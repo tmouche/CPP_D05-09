@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:43:36 by tmouche           #+#    #+#             */
-/*   Updated: 2025/02/03 21:36:20 by tmouche          ###   ########.fr       */
+/*   Updated: 2025/02/04 17:08:31 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,8 @@ private:
 	std::map<RateDate&, float>	_dataBase;
 
 	std::string const	_dbFile;
-
-	typedef struct	s_ssPart {
-		int		year;
-		int		month;
-		int		day;
-		char	dash[2];
-		char	coma;
-	}	t_ssPart;
 	
-	void	checkPart(t_ssPart&	part);
+	bool	checkPart(std::string const & line, std::string const & exemple);
 	void	checkDate(RateDate& date);
 
 	static unsigned short	_month[12];

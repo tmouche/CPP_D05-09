@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:21:45 by tmouche           #+#    #+#             */
-/*   Updated: 2025/02/03 21:47:25 by tmouche          ###   ########.fr       */
+/*   Updated: 2025/02/04 19:23:11 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,42 @@ void	BitcoinExchange::chargeDb( void ) {
 	std::getline(ifs, dataStr, '\n');
 	while (!dataStr.empty()) {
 		std::stringstream	ssData(dataStr);
-		t_ssPart			part;
 		float				price;
 
-		ssData >> part.year >> part.dash[0] >> part.month >> part.dash[1] >> part.day >> part.coma >> price;
+		
 	}
 	return ;
 }
 
-void	BitcoinExchange::checkPart(t_ssPart& part) {
-	if (part.year || part.month || part.day || part.dash[0] != )
+bool	BitcoinExchange::checkPart(std::string const & line) {
+	std::string const	corpus = "0123456789";
+	std::string const	exemple = "XXXX-XX-XX,XX.XX";
+	int					iLine;
+	int					iExemple;
+
+	for (iLine = 0, iExemple = 0; iLine < line.size();) {
+		if (line[iLine] == exemple[iExemple]) {
+			++iLine;
+			++iExemple; 
+		}
+		else if (exemple[iExemple] == 'X') {
+			if (corpus.find(line[iLine])) {
+				++iLine;
+				++iExemple;
+			}
+			else
+				return false;
+		}
+		else if (exemple[iExemple] == '*') {
+			if (corpus.find(line[iLine]))
+				++iLine;
+			else
+				++iExemple;
+		}
+		else
+			return false;
+	}
+	if (iExemple < exemple.size() - 1)
+		return false;
+	return true;
 }
