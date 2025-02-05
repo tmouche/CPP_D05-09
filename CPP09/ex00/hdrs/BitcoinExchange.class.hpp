@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:43:36 by tmouche           #+#    #+#             */
-/*   Updated: 2025/02/04 17:08:31 by tmouche          ###   ########.fr       */
+/*   Updated: 2025/02/05 21:28:54 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,14 @@ private:
 
 	std::string const	_dbFile;
 	
-	bool	checkPart(std::string const & line, std::string const & exemple);
-	void	checkDate(RateDate& date);
+	bool	checkPrice(std::string const & rate);
+	bool	checkDate(std::string const & date);
+	bool	checkDate(RateDate const & date);
+	
+	bool	isAlreadyPriced(RateDate const & date);
 
-	static unsigned short	_month[12];
-	static unsigned short	_monthLeap[12];
+	static unsigned short const	_month[12];
+	static unsigned short const	_monthLeap[12];
 };
 
 #endif

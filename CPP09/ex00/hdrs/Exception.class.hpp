@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 21:08:22 by tmouche           #+#    #+#             */
-/*   Updated: 2025/02/03 21:44:20 by tmouche          ###   ########.fr       */
+/*   Updated: 2025/02/05 21:32:19 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ class NoFileException : public Exception {
 		std::string const &	_file;
 };
 
-class DatabaseErroneousDatabase : public Exception {
+class DatabaseErroneousData: public Exception {
 	public:
 		virtual void	what() const throw() {
 			std::cout << "Error: Unknown char in database " <<  std::endl;
@@ -39,12 +39,24 @@ class DatabaseErroneousDatabase : public Exception {
 
 class DataBaseNoDate : public Exception {
 	public:
-		DataBaseNoDate(std::string const & date) : _date(date) {}
+		DataBaseNoDate(RateDate* date) : _date(date) {}
 		virtual void	what() const throw() {
-			std::cout << "Error: " << this->_date << " does not exist" << std::endl;
+			std::cout << "Error: " << this->_date->year << "-" << this->_date->month << "-" << this->_date->day << " does not exist" << std::endl;
+			delete this->_date;
 		}
 	private:
-		std::string	const &	_date;
+		RateDate*	_date;
+};
+
+class DataBaseDuplicateDate : public Exception {
+	public:
+		DataBaseDuplicateDate(RateDate* date) : _date(date) {}
+		virtual void	what() const throw() {
+			std::cout << "Error: " << this->_date->year << "-" << this->_date->month << "-" << this->_date->day << " already exist in the database" << std::endl;
+			delete this->_date;
+		}
+	private:
+		RateDate*	_date;
 };
 
 #endif
