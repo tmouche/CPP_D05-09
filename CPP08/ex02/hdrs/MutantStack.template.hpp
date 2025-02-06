@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MutantStack.template.hpp                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 18:20:04 by tmouche           #+#    #+#             */
-/*   Updated: 2024/10/01 11:55:35 by tmouche          ###   ########.fr       */
+/*   Updated: 2025/02/06 18:47:05 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,23 @@
 # include <stack>
 
 template <typename T>
+
+class MutantStack : public std::stack<T>
+{
+public:
+
+	typedef typename std::stack<T>::container_type::iterator iterator;
+	typedef typename std::stack<T>::container_type::const_iterator const_iterator;
+
+	MutantStack() {};
+	iterator begin() {return this->c.begin();}
+	iterator end() {return this->c.end();}
+
+	const_iterator begin() const {return this->c.begin();}
+	const_iterator end() const {return this->c.end();}
+
+};
+
 class MutantStack {
 public :
 	MutantStack( void ) {}
