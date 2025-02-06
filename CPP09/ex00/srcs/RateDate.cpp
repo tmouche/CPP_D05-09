@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RateDate.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:48:49 by tmouche           #+#    #+#             */
-/*   Updated: 2025/02/03 20:21:30 by tmouche          ###   ########.fr       */
+/*   Updated: 2025/02/06 16:44:55 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ RateDate&	RateDate::operator=(RateDate const & rhs) {
 	if (this != &rhs) {
 		(void)rhs;
 	}
-	return ;
+	return *this;
 }
 
-bool	RateDate::operator<(RateDate const & rhs) {
+bool	RateDate::operator<(RateDate const & rhs) const {
 	if (this->year < rhs.year)
 		return true;
 	if (this->month < rhs.month)
