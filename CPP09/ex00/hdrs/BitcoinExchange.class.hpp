@@ -3,74 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.class.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/09 10:17:29 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/26 16:41:00 by tmouche          ###   ########.fr       */
+/*   Created: 2025/02/03 16:43:36 by tmouche           #+#    #+#             */
+/*   Updated: 2025/02/06 18:06:41 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BITCOINEXCHANGE_CLASS_HPP
 # define BITCOINEXCHANGE_CLASS_HPP
-# include <vector>
+# include <map>
 # include <string>
-#include <iostream>
+# include "RateDate.class.hpp"
 
 class BitcoinExchange {
-public : 
+public:
 	BitcoinExchange( void );
 	~BitcoinExchange( void );
+	BitcoinExchange(std::string const & dbFile);
 	BitcoinExchange(BitcoinExchange const & src);
-
+	
 	BitcoinExchange&	operator=(BitcoinExchange const & rhs);
 
-	void	valueMyWallet(std::string inFile, std::string dataFile);
-
-	class	Exception {
-	public :
-		virtual const void	what( void ) const throw() {}
-	};
+	void	valorise(std::string const & walletFile);
 	
-	class	inputException {
-	public :
-		virtual const void	what(std::string input) const throw() {
-			std::cout << "Error: bad input => " << input << std::endl;
-		}
-	};
+private:
+	void	chargeDb( void );
 
-	class	TooLargeValueException {
-	public :
-		virtual const void	what( void ) const throw() {
-			std::cout << "Error: too large number." << std::endl;
-		};
-	};
+	std::map<RateDate*, float>	_dataBase;
 
-	class	NegativeValueException {
-	public :
-		virtual const void	what( void ) const throw() {
-			std::cout << "Error: not a positive number." << std::endl;
-		};
-	};
+	std::string const	_dbFile;
 	
-	class	FileException {
-	public :
-		virtual const void	what( void ) const throw() {
-			perror("Error");
-		}
-	};
+	RateDate*	createDate(std::string const & date);
+	void 		displayLine(std::string const & date, float amount, float price);
 
-private :
-	void	dataLoader(std::string dataFile);
-	int		convertDate(std::string date) const;
-	bool	checkString(std::string const seed, std::string const data, std::string const corpus) const;
-	int		dateToIdx(int const dateConverted) const;
-	void	lineValue(std::string line);
+	bool	checkPrice(std::string const & rate);
+	bool	checkDate(std::string const & date);
+	bool	checkDate(RateDate const & date);
 	
-	std::vector<float>_dataBaseDate;
-	std::vector<float>_dataBaseRate;
+	float	getPrice(RateDate const & date);
+	bool	isAlreadyPriced(RateDate const & date);
 
-	static int const	_month[12];
-	static int const	_monthLeap[12];
+	static unsigned short const	_month[12];
+	static unsigned short const	_monthLeap[12];
 };
 
 #endif
