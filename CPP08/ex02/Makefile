@@ -6,11 +6,11 @@
 #    By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:21:22 by thibaud           #+#    #+#              #
-#    Updated: 2024/11/25 19:28:45 by tmouche          ###   ########.fr        #
+#    Updated: 2025/02/07 18:18:11 by tmouche          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= Whatever
+NAME		= MutantStack
 
 HEADER		=	hdrs/
 SRCS_DIR	=	srcs/

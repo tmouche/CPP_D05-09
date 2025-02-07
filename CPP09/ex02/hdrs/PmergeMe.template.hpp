@@ -6,7 +6,7 @@
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:46:09 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/26 16:25:09 by tmouche          ###   ########.fr       */
+/*   Updated: 2025/02/07 13:17:38 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,10 +156,10 @@ private:
 
 	Sc					_myType;
 	Nc					_myTypeContainer;
-	static int const	_jacobsthal[15];
+	static int const	_jacobsthal[20];
 };
 
 template< typename Nc, typename Sc>
-const int PmergeMe<Nc, Sc>::_jacobsthal[15] = {0, 1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923};
+const int PmergeMe<Nc, Sc>::_jacobsthal[20] = {0, 1, 3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845, 43691, 87381, 174763, 349525};
 
 #endif
