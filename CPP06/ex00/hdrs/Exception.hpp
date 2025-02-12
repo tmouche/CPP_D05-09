@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CharConverter.class.hpp                            :+:      :+:    :+:   */
+/*   Exception.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/16 13:00:08 by tmouche           #+#    #+#             */
-/*   Updated: 2025/02/12 16:09:28 by tmouche          ###   ########.fr       */
+/*   Created: 2025/02/12 16:03:12 by tmouche           #+#    #+#             */
+/*   Updated: 2025/02/12 16:13:53 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHARCONVERTER_CLASS_HPP
-# define CHARCONVERTER_CLASS_HPP
-# include <string>
+#ifndef EXCEPTION_HPP
+# define EXCEPTION_HPP
+# include <exception>
 
-class CharConverter {
+class	NoConvertionException : public std::exception {
 public :
-	static char	converter(std::string const src);
+	char const *	what() const throw() {return "impossible";}
+};
 
-private :
-	CharConverter( void );
-	~CharConverter( void );
-	CharConverter(CharConverter const & src);
-
-	CharConverter&	operator=(CharConverter const & rhs);
+class	NoDisplayableException : public std::exception {
+public :
+	char const *	what() const throw() {return "Not displayable";}
 };
 
 #endif

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "DoubleConverter.class.hpp"
+#include "Exception.hpp"
 #include <iostream>
 #include <limits>
 #include <cstdlib>
@@ -40,11 +41,8 @@ double	DoubleConverter::converter(std::string const src) {
 	try {
 		doubleConverted = std::atof(src.c_str());
 	}
-	catch (std::invalid_argument const & e) {
-		throw DoubleConverter::NoConvertionException();
-	}
-	catch (std::out_of_range const & e) {
-		throw DoubleConverter::NoConvertionException();
+	catch (std::exception const & e) {
+		throw NoConvertionException();
 	}
 	return doubleConverted;
 }

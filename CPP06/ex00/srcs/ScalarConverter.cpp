@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 12:24:54 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/22 16:15:31 by tmouche          ###   ########.fr       */
+/*   Updated: 2025/02/12 16:09:08 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "IntConverter.class.hpp"
 #include "FloatConverter.class.hpp"
 #include "DoubleConverter.class.hpp"
+#include "Exception.hpp"
 #include <iostream>
 
 ScalarConverter::ScalarConverter( void ) {
@@ -48,19 +49,16 @@ void	ScalarConverter::convert(std::string input) {
 		c = CharConverter::converter(input);
 		std::cout << c << std::endl;
 	}
-	catch (CharConverter::NoConvertionException const & e) {
-		std::cout << "impossible" << std::endl;
-	}
-	catch (CharConverter::NoDisplayableException const & e) {
-		std::cout << "Not displayable" << std::endl;
+	catch (std::exception const & e) {
+		std::cout << e.what() << std::endl;
 	}
 	std::cout << "int: ";
 	try {
 		i = IntConverter::converter(input);
 		std::cout << i << std::endl;
 	}
-	catch (IntConverter::NoConvertionException const & e) {
-		std::cout << "impossible" << std::endl;
+	catch (std::exception const & e) {
+		std::cout << e.what() << std::endl;
 	}
 	std::cout.precision(2);
 	std::cout << "float: ";
@@ -68,16 +66,16 @@ void	ScalarConverter::convert(std::string input) {
 		f = FloatConverter::converter(input);
 		std::cout << std::fixed << f << "f" << std::endl;
 	}
-	catch (CharConverter::NoConvertionException const & e) {
-		std::cout << "impossible" << std::endl;
+	catch (std::exception const & e) {
+		std::cout << e.what() << std::endl;
 	}
 	std::cout << "double: ";
 	try {
 		d = DoubleConverter::converter(input);
 		std::cout << std::fixed << d << std::endl;
 	}
-	catch (DoubleConverter::NoConvertionException const & e) {
-		std::cout << "impossible" << std::endl;
+	catch (std::exception const & e) {
+		std::cout << e.what() << std::endl;
 	}
 	std::cout.precision(ss);
 	return ;

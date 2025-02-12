@@ -18,11 +18,6 @@ class DoubleConverter {
 public :
 	static double	converter(std::string const src);
 
-	class	NoConvertionException {
-	public :
-		virtual void	what() const throw() {};
-	};
-
 private :
 	DoubleConverter( void );
 	~DoubleConverter( void );

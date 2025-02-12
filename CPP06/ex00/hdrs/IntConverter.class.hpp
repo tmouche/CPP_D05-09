@@ -13,15 +13,11 @@
 #ifndef INTCONVERTER_CLASS_HPP
 # define INTCONVERTER_CLASS_HPP
 # include <string>
+# include <exception>
 
 class IntConverter {
 public :
 	static int	converter(std::string src);
-
-	class	NoConvertionException {
-	public :
-		virtual void	what() const throw() {};
-	};
 
 private :
 	IntConverter( void );

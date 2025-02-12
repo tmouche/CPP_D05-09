@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   CharConverter.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/16 13:04:18 by tmouche           #+#    #+#             */
-/*   Updated: 2024/11/22 16:23:41 by tmouche          ###   ########.fr       */
+/*   Updated: 2025/02/12 16:11:27 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "CharConverter.class.hpp"
+#include "Exception.hpp"
 #include <iostream>
 #include <cstdlib>
 
@@ -40,14 +41,11 @@ char	CharConverter::converter(std::string const src){
 	try {
 		intConverted = std::atoi(src.c_str());
 	}
-	catch (std::invalid_argument const & e) {
-		throw CharConverter::NoConvertionException();
-	}
-	catch (std::out_of_range const & e) {
-		throw CharConverter::NoConvertionException();
+	catch (std::exception const & e) {
+		throw NoConvertionException();
 	}
 	if (intConverted < 32 || intConverted > 126)	
-		throw CharConverter::NoDisplayableException();
+		throw NoDisplayableException();
 	c = static_cast<char>(intConverted);
 	return c;
 }

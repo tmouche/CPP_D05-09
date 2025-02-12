@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "FloatConverter.class.hpp"
+#include "Exception.hpp"
 #include <iostream>
 #include <iomanip>
 #include <ios>
@@ -41,11 +42,8 @@ float	FloatConverter::converter(std::string const src) {
 	try {
 		floatConverted = std::atof(src.c_str());
 	}
-	catch (std::invalid_argument const & e) {
-		throw FloatConverter::NoConvertionException();
-	}
-	catch (std::out_of_range const & e) {
-		throw FloatConverter::NoConvertionException();
+	catch (std::exception const & e) {
+		throw NoConvertionException();
 	}
 	return floatConverted;
 }
