@@ -6,7 +6,7 @@
 #    By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:21:22 by thibaud           #+#    #+#              #
-#    Updated: 2024/11/25 19:30:27 by tmouche          ###   ########.fr        #
+#    Updated: 2025/02/20 16:39:59 by tmouche          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,5 +56,4 @@ fclean: clean
 re: fclean
 	$(MAKE) all
 
-.SILENT:
-.PHONY: all clean fclean re oops slay dir run
+.PHONY: all clean fclean re run
