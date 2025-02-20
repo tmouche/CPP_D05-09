@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Array.template.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche < tmouche@student.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 07:20:33 by thibaud           #+#    #+#             */
-/*   Updated: 2024/11/22 17:01:24 by tmouche          ###   ########.fr       */
+/*   Updated: 2025/02/20 16:37:29 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,8 @@ public :
 		return (this->_myArray[rhs]);
 	}
 
-	unsigned int	size( void ) {
-		unsigned int	idx;
-		unsigned int	size = 0;
-		
-		for (idx = 0; idx < this->_arraySize; idx++) {
-			if (this->_myArray[idx])
-				++size;
-		}
-		return size;
+	unsigned int	size( void ) const {
+		return this->_arraySize;
 	}
 
 private :
