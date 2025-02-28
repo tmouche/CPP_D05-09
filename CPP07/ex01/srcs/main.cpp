@@ -14,7 +14,13 @@
 #include <iostream>
 
 template< typename Type >
-void	printDate(Type Data) {
+void	printDate(Type& Data) {
+	std::cout << Data << std::endl;
+	return ;
+}
+
+template< typename Type >
+void	printDate(Type const & Data) {
 	std::cout << Data << std::endl;
 	return ;
 }

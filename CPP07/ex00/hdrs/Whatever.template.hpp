@@ -23,12 +23,12 @@ void	swap(Type x, Type y) {
 }
 
 template< typename Type >
-Type	min(Type x, Type y) {
+Type	min(Type const x, Type const y) {
 	return ((y<=x) ? (y) : (x));
 }
 
 template< typename Type >
-Type	max(Type x, Type y) {
+Type	max(Type const x, Type const y) {
 	return ((y>=x) ? (y) : (x));
 }
 

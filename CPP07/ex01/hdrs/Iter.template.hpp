@@ -14,7 +14,14 @@
 # define ITER_TEMPLATE_HPP
 
 template< typename Type >
-void	iter(Type* array, int length, void (*functionPtr)(Type)) {
+void	iter(Type const * array, int const length, void (*functionPtr)(Type const &)) {
+	for (int idx = 0; idx < length; idx++)
+		functionPtr(array[idx]);
+	return ;
+}
+
+template< typename Type >
+void	iter(Type* array, int const length, void (*functionPtr)(Type&)) {
 	for (int idx = 0; idx < length; idx++)
 		functionPtr(array[idx]);
 	return ;
