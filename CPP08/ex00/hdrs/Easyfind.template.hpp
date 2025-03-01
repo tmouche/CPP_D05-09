@@ -14,7 +14,7 @@
 # define EASYFIND_TEMPLATE_HPP
 
 template< typename T >
-bool	easyFind(T const & container, int base) {
+bool	easyFind(T const & container, int const base) {
 	typename T::const_iterator	it;
 	
 	for (it = container.begin(); it != container.end(); it++) {

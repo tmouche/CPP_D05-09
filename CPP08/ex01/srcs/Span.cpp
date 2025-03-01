@@ -88,12 +88,12 @@ unsigned int	Span::shortestSpan( void ) const {
 
 	if (this->_myVector->size() < 2)
 		throw Span::NotEnoughElementException();
-	min = this->_myVector->at(0);
+	min = *this->_myVector->begin();
 	minNext = __INT_MAX__;
 	for (it = this->_myVector->begin(); it != this->_myVector->end(); it++) {
-		if (*it < min)
+		if (*it <= min)
 			min = *it;
-		else if (*it < minNext && it != this->_myVector->begin())
+		else if (*it < minNext)
 			minNext = *it;
 	}
 	return (minNext - min);
