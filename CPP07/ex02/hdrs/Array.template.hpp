@@ -14,10 +14,16 @@
 # define ARRAY_TEMPLATE_HPP
 # include <exception>
 
+class OutOfBound : public std::exception {
+	const char* what( void ) const throw() {
+		return ("out of bound");
+	}
+};
+
 template< typename T >
 class Array {
 public :
-	Array( void ) {}
+	Array( void ) {}	
 	~Array( void ) {
 		delete [] this->_myArray;
 		return ;
@@ -40,7 +46,7 @@ public :
 	}
 	T&	operator[](unsigned int const & rhs) const {
 		if (rhs >= this->_arraySize)
-			throw std::exception();
+			throw OutOfBound();
 		return (this->_myArray[rhs]);
 	}
 
