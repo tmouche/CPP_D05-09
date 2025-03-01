@@ -38,7 +38,7 @@ public :
 		}
 		return *this;
 	}
-	T&	operator[](unsigned int const & rhs) {
+	T&	operator[](unsigned int const & rhs) const {
 		if (rhs >= this->_arraySize)
 			throw std::exception();
 		return (this->_myArray[rhs]);
