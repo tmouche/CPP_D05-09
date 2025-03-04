@@ -22,9 +22,9 @@ int	main( void ) {
 	intVector.push_back(idx);
 	searched = 5;
 	if (easyFind< std::vector<int> >(intVector, 5) == true)
-		std::cout << "the searched" << searched << "number is in" << std::endl;
+		std::cout << "the searched " << searched << " number is in" << std::endl;
 	else
-		std::cout << "the searched" << searched << "number is not in" << std::endl;
+		std::cout << "the searched " << searched << " number is not in" << std::endl;
 	searched = 12;
 	if (easyFind< std::vector<int> >(intVector, 12) == true)
 		std::cout << "the searched " << searched << " number is in" << std::endl;

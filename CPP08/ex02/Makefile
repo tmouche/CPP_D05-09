@@ -29,15 +29,11 @@ RM		= rm -rf
 
 -include $(DEPS)
 
-.DEFAULT_GOAL = all
 
 all: $(NAME)
 
-run: all
-	./$(NAME)
-
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) && echo "$(END)$(GREEN)\n* $(NAME) compilation completed !!!\n$(END)"
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) && echo "$(END)\n* $(NAME) compilation completed !!!\n$(END)"
 
 $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
@@ -48,13 +44,13 @@ $(OBJS): $(OBJS_DIR)%.o: $(SRCS_DIR)%.cpp | $(OBJS_DIR) $(DEPS_DIR)
 	$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ && echo "  $@" 
 
 clean:
-		$(RM) $(OBJS_DIR) $(DEPS_DIR) && echo "$(RED) * object cleared...$(END)"
+		$(RM) $(OBJS_DIR) $(DEPS_DIR) && echo " * object cleared...$(END)"
 
 fclean: clean
-		$(RM) $(NAME) && $(RM) $(DIR_BUILD) $(OBJS_DIR) $(DEPS_DIR) && echo "$(RED) * $(NAME) is fully cleared...$(END)"
+		$(RM) $(NAME) && $(RM) $(DIR_BUILD) $(OBJS_DIR) $(DEPS_DIR) && echo " * $(NAME) is fully cleared...$(END)"
 
 re: fclean
 	$(MAKE) all
 
 .SILENT:
-.PHONY: all clean fclean re oops slay dir run
+.PHONY: all clean fclean re
