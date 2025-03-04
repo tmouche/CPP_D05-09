@@ -12,6 +12,9 @@
 
 #include "Span.class.hpp"
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
+
 
 int	main( void ) {
 	Span	numbers(10);
@@ -70,7 +73,23 @@ int	main( void ) {
 	sp.addNumber(17);
 	sp.addNumber(9);
 	sp.addNumber(11);
-	std::cout << sp.shortestSpan() << std::endl;
-	std::cout << sp.longestSpan() << std::endl;
+	resShortest = sp.shortestSpan();
+	std::cout << "The shortest span is " << resShortest << std::endl;
+	resLongest = sp.longestSpan();
+	std::cout << "The longest span is " << resLongest << std::endl;
+
+	std::cout << "*** * * * 10k random Test * * * ***" << std::endl;
+
+	Span mySpan = Span(10000);
+
+	for (int i = 0; i < 10000; i++) {
+		srand(time(NULL) + i);
+		int random = rand() % 10000;
+		mySpan.addNumber(random);
+	}
+	resShortest = mySpan.shortestSpan();
+	std::cout << "The shortest span is " << resShortest << std::endl;
+	resLongest = mySpan.longestSpan();
+	std::cout << "The longest span is " << resLongest << std::endl;
 	return 0;
 }

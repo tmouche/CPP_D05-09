@@ -12,9 +12,9 @@
 
 #include "Span.class.hpp"
 #include <iostream>
-#include <limits>
+#include <climits>
 
-Span::Span( void ) {
+Span::Span( void ) : _size(0) {
 	return ;
 }
 
@@ -22,37 +22,33 @@ Span::~Span( void ) {
 	return ;	
 }
 
-Span::Span(unsigned int N) {
-	std::vector<int>* myVector = new std::vector<int>();
-	
-	this->_myVector = myVector;
-	this->_countDownSize = N;
+Span::Span(unsigned int N) : _size(N) {	
 	return ;
 }
 
-Span::Span(Span const & src) {
+Span::Span(Span const & src) : _size(src._size){
 	*this = src;
 	return ;
 }
 
 Span&	Span::operator=(Span const & rhs) {
 	if (this != &rhs) {
-		this->_myVector = rhs._myVector;
+		
 	}
 	return *this;
 }
 
-void	Span::addNumber(int num) {
-	if (this->_countDownSize > 0) {
-		this->_myVector->push_back(num);
-		--this->_countDownSize;
-	}
+unsigned int	defSpan(int,int);
+
+void	Span::addNumber(int const num) {
+	if (this->_myVector.size() < this->_size)
+		this->_myVector.push_back(num);
 	else
 		throw Span::NoSuchSpaceLeftException();
 	return ;
 }
 
-void	Span::addNumber(std::vector<int>::const_iterator start, std::vector<int>::const_iterator end) {
+void	Span::addNumber(spanIterator start, spanIterator end) {
 	while (start != end) {
 		try {
 			this->addNumber(*start);
@@ -66,37 +62,31 @@ void	Span::addNumber(std::vector<int>::const_iterator start, std::vector<int>::c
 }
 
 unsigned int	Span::longestSpan( void ) const {
-	std::vector<int>::const_iterator it;
-	int					max = 0;
-	int					min;
+	unsigned int	longest = 0;
 
-	if (this->_myVector->size() < 2)
+	if (this->_myVector.size() < 2)
 		throw Span::NotEnoughElementException();
-	min = this->_myVector->at(0);
-	for (it = this->_myVector->begin(); it != this->_myVector->end(); it++) {
-		if (*it > max)
-			max = *it;
-		else if (*it < min)
-			min = *it;
+	spanIterator	actual = this->_myVector.begin();
+	for (spanIterator next = actual + 1; next != this->_myVector.end(); actual++, next++) {
+		unsigned int const	actualSpan = defSpan(*actual, *next);
+		if (actualSpan > longest)
+			longest = actualSpan;
 	}
-	return (max - min);
+	return longest;
 }
 
 unsigned int	Span::shortestSpan( void ) const {
-	std::vector<int>::const_iterator	it;
-	int									min, minNext;
+	unsigned int	shortest = UINT_MAX;
 
-	if (this->_myVector->size() < 2)
+	if (this->_myVector.size() < 2)
 		throw Span::NotEnoughElementException();
-	min = *this->_myVector->begin();
-	minNext = __INT_MAX__;
-	for (it = this->_myVector->begin(); it != this->_myVector->end(); it++) {
-		if (*it <= min)
-			min = *it;
-		else if (*it < minNext)
-			minNext = *it;
+	spanIterator	actual = this->_myVector.begin();
+	for (spanIterator next = actual + 1; next != this->_myVector.end(); actual++, next++) {
+		unsigned int const	actualSpan = defSpan(*actual, *next);
+		if (actualSpan < shortest)
+			shortest = actualSpan;
 	}
-	return (minNext - min);
+	return shortest;
 }
 
 std::string	Span::NoSuchSpaceLeftException::what( void ) const throw() {
@@ -105,4 +95,10 @@ std::string	Span::NoSuchSpaceLeftException::what( void ) const throw() {
 
 std::string	Span::NotEnoughElementException::what( void ) const throw() {
 	return "Not enough element in the vector";
+}
+
+unsigned int	defSpan(int num1, int num2) {
+	if (num1 > num2)
+		return num1 - num2;
+	return num2 - num1;
 }

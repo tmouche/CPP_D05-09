@@ -57,4 +57,4 @@ re: fclean
 	$(MAKE) all
 
 .SILENT:
-.PHONY: all clean fclean re oops slay dir run
+.PHONY: all clean fclean re run

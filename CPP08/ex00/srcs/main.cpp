@@ -16,12 +16,19 @@
 
 int	main( void ) {
 	std::vector<int>intVector;
-	
+	int				searched;
+
 	for (int idx = 0; idx < 10; idx++)
-		intVector.push_back(idx);
+	intVector.push_back(idx);
+	searched = 5;
 	if (easyFind< std::vector<int> >(intVector, 5) == true)
-		std::cout << "the searched number is in" << std::endl;
+		std::cout << "the searched" << searched << "number is in" << std::endl;
 	else
-		std::cout << "the searched number is not in" << std::endl;
+		std::cout << "the searched" << searched << "number is not in" << std::endl;
+	searched = 12;
+	if (easyFind< std::vector<int> >(intVector, 12) == true)
+		std::cout << "the searched " << searched << " number is in" << std::endl;
+	else
+		std::cout << "the searched " << searched << " number is not in" << std::endl;
 	return 1;
 }

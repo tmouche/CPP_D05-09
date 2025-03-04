@@ -15,6 +15,8 @@
 # include <vector>
 # include <string>
 
+typedef std::vector<int>::const_iterator spanIterator;
+
 class Span {
 public :
 	~Span( void );
@@ -33,16 +35,16 @@ public :
 			std::string what( void ) const throw();
 	};
 	
-	void			addNumber(int num);
-	void			addNumber(std::vector<int>::const_iterator start, std::vector<int>::const_iterator end);
+	void			addNumber(int const num);
+	void			addNumber(spanIterator start, spanIterator end);
 	unsigned int	shortestSpan( void ) const;
 	unsigned int	longestSpan( void ) const;
 
 private :
 	Span( void );
-	
-	std::vector<int>*	_myVector;
-	unsigned int		_countDownSize;
+
+	std::vector<int>	_myVector;
+	unsigned int const	_size;
 };
 
 #endif
