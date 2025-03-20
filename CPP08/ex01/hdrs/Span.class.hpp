@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Span.class.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:33:12 by tmouche           #+#    #+#             */
-/*   Updated: 2024/09/25 12:24:21 by tmouche          ###   ########.fr       */
+/*   Updated: 2025/03/20 10:50:48 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,15 @@ public :
 	unsigned int	shortestSpan( void ) const;
 	unsigned int	longestSpan( void ) const;
 
-private :
+	
+	private :
 	Span( void );
+	
+	void	defSpan( void );
 
 	std::vector<int>	_myVector;
+	unsigned int		_longest;
+	unsigned int		_shortest;
 	unsigned int const	_size;
 };
 

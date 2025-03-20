@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+         #
+#    By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:21:22 by thibaud           #+#    #+#              #
-#    Updated: 2024/11/25 19:36:15 by tmouche          ###   ########.fr        #
+#    Updated: 2025/03/20 11:09:01 by thibaud          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ RM		= rm -rf
 
 -include $(DEPS)
 
+.DEFAULT_GOAL = all
 
 all: $(NAME)
 
@@ -44,7 +45,7 @@ $(OBJS): $(OBJS_DIR)%.o: $(SRCS_DIR)%.cpp | $(OBJS_DIR) $(DEPS_DIR)
 	$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ && echo "  $@" 
 
 clean:
-		$(RM) $(OBJS_DIR) $(DEPS_DIR) && echo " * object cleared...$(END)"
+		$(RM) $(OBJS_DIR) $(DEPS_DIR) && echo "* object cleared...$(END)"
 
 fclean: clean
 		$(RM) $(NAME) && $(RM) $(DIR_BUILD) $(OBJS_DIR) $(DEPS_DIR) && echo " * $(NAME) is fully cleared...$(END)"
@@ -52,5 +53,4 @@ fclean: clean
 re: fclean
 	$(MAKE) all
 
-.SILENT:
 .PHONY: all clean fclean re
