@@ -6,11 +6,11 @@
 #    By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/15 17:21:22 by thibaud           #+#    #+#              #
-#    Updated: 2025/02/06 16:36:01 by thibaud          ###   ########.fr        #
+#    Updated: 2025/03/23 11:58:55 by thibaud          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= btc
+NAME		= Btc
 
 HEADER		=	hdrs/
 SRCS_DIR	=	srcs/
@@ -22,7 +22,7 @@ OBJS		= $(SRCS:%.cpp=$(OBJS_DIR)%.o)
 DEPS		= $(SRCS:%.cpp=$(DEPS_DIR)%.d)
 
 CC		= c++
-CFLAGS	= -Wall -Wextra -Werror -std=c++98 -g3 -I $(HEADER)
+CFLAGS	= -Wall -Wextra -Werror -g3 -I $(HEADER)
 DFLAGS	= -MMD -MP -MT $@ -MF $(DEPS_DIR)$*.d
 RM		= rm -rf
 
@@ -30,30 +30,29 @@ RM		= rm -rf
 
 .DEFAULT_GOAL = all
 
-all: $(NAME)
+all: $(NAME) 
 
 run: all
 	./$(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) && echo "$(END)$(GREEN)\n* $(NAME) compilation completed !!!\n$(END)"
+$(NAME): $(OBJS) Makefile
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) && echo "$(NAME) compilation completed !!!"
 
 $(OBJS_DIR):
-	mkdir -p $(OBJS_DIR)
+	@mkdir -p $(OBJS_DIR)
 $(DEPS_DIR):
-	mkdir -p $(DEPS_DIR)
+	@mkdir -p $(DEPS_DIR)
 
 $(OBJS): $(OBJS_DIR)%.o: $(SRCS_DIR)%.cpp | $(OBJS_DIR) $(DEPS_DIR)
-	$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@ && echo "  $@" 
+	@$(CC) $(CFLAGS) $(DFLAGS) -c $< -o $@
 
 clean:
-		$(RM) $(OBJS_DIR) $(DEPS_DIR) && echo "$(RED) * object cleared...$(END)"
+	@$(RM) $(OBJS_DIR) $(DEPS_DIR) && echo "Objects cleared..."
 
 fclean: clean
-		$(RM) $(NAME) && $(RM) $(DIR_BUILD) $(OBJS_DIR) $(DEPS_DIR) && echo "$(RED) * $(NAME) is fully cleared...$(END)"
+	@$(RM) $(NAME) && echo "Fully cleared..."
 
 re: fclean
 	$(MAKE) all
 
-.SILENT:
-.PHONY: all clean fclean re oops slay dir run
+.PHONY: all clean fclean re run
