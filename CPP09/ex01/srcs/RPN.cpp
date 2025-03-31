@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RPN.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:27:08 by tmouche           #+#    #+#             */
-/*   Updated: 2024/10/15 11:42:04 by tmouche          ###   ########.fr       */
+/*   Updated: 2025/03/31 21:04:28 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,18 @@ int	RPN::calculRPN(std::string data) {
 		for (idx = 0; corpus[idx] && corpus[idx] != data[0]; idx++);
 		if (idx <= 10)
 			idx < 10 ? this->number(data) : this->space(data);
-		else {
+		else if (this->_myStack.size() > 1) {
 			temp = this->_myStack.top();
 			this->_myStack.pop();
 			(this->*_fctPtr[idx - 11])(temp);
-			data.erase(0, 1);
 			this->_myStack.pop();
 			this->_myStack.push(temp);
+			data.erase(0, 1);
 		}
+		else
+			throw std::exception();
 	}
+	if (this->_myStack.size() > 1)
+		throw std::exception();	
 	return (this->_myStack.top());
 }
