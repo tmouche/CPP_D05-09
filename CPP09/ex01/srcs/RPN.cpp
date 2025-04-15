@@ -6,7 +6,7 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:27:08 by tmouche           #+#    #+#             */
-/*   Updated: 2025/03/31 21:04:28 by thibaud          ###   ########.fr       */
+/*   Updated: 2025/04/15 14:37:31 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ RPN&	RPN::operator=(RPN const & rhs) {
 
 void	RPN::number(std::string &data) {
 	this->_myStack.push(std::atoi(data.c_str()));
+	if (this->_myStack.top() > 10)
+		throw std::exception();
 	while (::isdigit(data[0]))
 		data.erase(0, 1);
 	return ;
