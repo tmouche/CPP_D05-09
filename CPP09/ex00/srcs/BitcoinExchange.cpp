@@ -6,7 +6,7 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:21:45 by tmouche           #+#    #+#             */
-/*   Updated: 2025/04/15 14:44:42 by thibaud          ###   ########.fr       */
+/*   Updated: 2025/04/18 02:41:13 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "Exception.class.hpp"
 
 #include <fstream>
-#include <sstream>
-#include <string>
 
 unsigned short const	BitcoinExchange::_month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 unsigned short const	BitcoinExchange::_monthLeap[12] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -50,16 +48,14 @@ BitcoinExchange& BitcoinExchange::operator=(BitcoinExchange const & rhs) {
 }
 
 void	BitcoinExchange::valorise(std::string const & walletFile) {
-	std::string		dataStr;
-	std::ifstream	ifs(walletFile.c_str());
+	std::stringstream	data(this->dumpFile(walletFile));
+	std::string			dataStr;
 	
-	if (!ifs)
-		throw NoFileException(this->_dbFile);
-	std::getline(ifs, dataStr, '\n');
+	std::getline(data, dataStr, '\n');
 	if (dataStr.compare("date | value"))
 		throw DatabaseErroneousData();
 	dataStr.clear();
-	while (std::getline(ifs, dataStr, '\n') && dataStr[0]) {
+	while (std::getline(data, dataStr, '\n') && dataStr[0]) {
 		std::stringstream	ssData(dataStr);
 		std::string			date, amount;
 		float				famount;
@@ -87,16 +83,14 @@ void	BitcoinExchange::valorise(std::string const & walletFile) {
 }
 
 void	BitcoinExchange::chargeDb( void ) {
-	std::string		dataStr;
-	std::ifstream	ifs(this->_dbFile.c_str());
+	std::stringstream	data(this->dumpFile(this->_dbFile));
+	std::string			dataStr;
 
-	if (!ifs)
-		throw NoFileException(this->_dbFile);
-	std::getline(ifs, dataStr, '\n');
+	std::getline(data, dataStr, '\n');
 	if (dataStr.compare("date,exchange_rate"))
 		throw DatabaseErroneousData();
 	dataStr.clear();
-	while (std::getline(ifs, dataStr, '\n') && dataStr[0]) {
+	while (std::getline(data, dataStr, '\n') && dataStr[0]) {
 		std::stringstream	ssData(dataStr);
 		std::string			date, price;
 		float				fprice;
@@ -135,8 +129,12 @@ RateDate*	BitcoinExchange::createDate(std::string const & date) {
 
 float	BitcoinExchange::getPrice(RateDate const & date) {
 	for (std::map<RateDate*, float>::iterator it = this->_dataBase.begin(); it != this->_dataBase.end(); it++) {
-		if (date.year <= it->first->year && date.month <= it->first->month && date.day <= it->first->day)
-			return (--it)->second;
+		if (date.year <= it->first->year && date.month <= it->first->month && date.day <= it->first->day) {
+			float	price = 0.;
+			if (it != this->_dataBase.begin())
+				price = (--it)->second;
+			return price;
+		}
 	}
 	return this->_dataBase.end()->second;
 }
@@ -199,4 +197,15 @@ bool	BitcoinExchange::checkDate(RateDate const & date) {
 	else if (leap == false && this->_month[date.month - 1] < date.day)
 		return false;
 	return true;
+}
+
+std::string	BitcoinExchange::dumpFile(std::string const & name) {
+	std::ifstream	ifs(name.c_str());
+	std::string		data;
+
+	if (!ifs)
+		throw NoFileException(name);
+	std::getline(ifs, data, '\0');
+	ifs.close();
+	return data;
 }
