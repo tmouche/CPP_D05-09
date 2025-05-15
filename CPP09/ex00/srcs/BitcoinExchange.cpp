@@ -6,7 +6,7 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:21:45 by tmouche           #+#    #+#             */
-/*   Updated: 2025/05/15 12:54:51 by thibaud          ###   ########.fr       */
+/*   Updated: 2025/05/15 15:07:30 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ BitcoinExchange::BitcoinExchange( void ) {
 }
 
 BitcoinExchange::~BitcoinExchange( void ) {
-	for (std::map<RateDate*, float>::iterator it = this->_dataBase.begin(); it != this->_dataBase.end(); it++)
-		delete it->first;
+	for (std::set<RateDate*>::iterator it = this->_dataBase.begin(); it != this->_dataBase.end(); it++)
+		delete *it;
 	return ;
 }
 
@@ -40,10 +40,9 @@ BitcoinExchange::BitcoinExchange(BitcoinExchange const & src) {
 
 BitcoinExchange& BitcoinExchange::operator=(BitcoinExchange const & rhs) {
 	if (this != &rhs) {
-		for (std::map<RateDate*, float>::iterator it; it != rhs._dataBase.end(); it++)
-			this->_dataBase[(new RateDate(*it->first))] = it->second;
+		for (std::set<RateDate*>::iterator it = rhs._dataBase.begin(); it != rhs._dataBase.end(); it++)
+			this->_dataBase.insert(new RateDate(**it));
 	}
-	(void)rhs;
 	return *this;
 }
 
@@ -63,16 +62,16 @@ void	BitcoinExchange::valorise(std::string const & walletFile) {
 		std::getline(ssData, date, '|');
 		std::getline(ssData, amount, '|');
 		date.resize(date.size() - 1);
-		RateDate*	datePriced = createDate(date);
+		RateDate*	datePriced = createDate(date, 0.0);
 		if (!checkDate(date) || !checkPrice(amount) || !checkDate(*datePriced))
-			std::cout << "Error: bad input => " << dataStr << std::endl;
+			std::cerr << "Error: bad input => " << dataStr << std::endl;
 		else {
 			std::stringstream	ssPrice(amount);
 			ssPrice >> famount;
 			if (famount > 1000)
-				std::cout << "Error: too large a number." << std::endl;
+				std::cerr << "Error: too large a number." << std::endl;
 			else if (famount < 0)
-				std::cout << "Error: not a positive number." << std::endl;
+				std::cerr << "Error: not a positive number." << std::endl;
 			else
 				displayLine(date, famount, getPrice(*datePriced));
 		}
@@ -99,14 +98,18 @@ void	BitcoinExchange::chargeDb( void ) {
 		std::getline(ssData, price, ',');
 		if (!checkDate(date) || !checkPrice(price))
 			throw DatabaseErroneousData();
-		RateDate*	datePriced = createDate(date);
-		if (!checkDate(*datePriced))
-			throw DataBaseNoDate(datePriced);
-		if (isAlreadyPriced(*datePriced))
-			throw DataBaseDuplicateDate(datePriced);
 		std::stringstream	ssPrice(price);
 		ssPrice >> fprice;
-		this->_dataBase[datePriced] = fprice;
+		RateDate*	datePriced = createDate(date, fprice);
+		if (!checkDate(*datePriced)) {
+			delete datePriced;
+			throw DataBaseNoDate(datePriced);
+		}
+		if (isAlreadyPriced(*datePriced)) {
+			delete datePriced;
+			throw DataBaseDuplicateDate(datePriced);
+		}
+		this->_dataBase.insert(datePriced);
 		dataStr.clear();
 	}
 	return ;
@@ -117,35 +120,32 @@ void	BitcoinExchange::displayLine(std::string const & date, float amount, float 
 	return ;	
 }
 
-RateDate*	BitcoinExchange::createDate(std::string const & date) {
+RateDate*	BitcoinExchange::createDate(std::string const & date, float const price) {
 	std::stringstream	ssDate(date);
 	int					year, month, day;
 	char				temp;
 
 	ssDate >> year >> temp >> month >> temp >> day;
-	RateDate*	datePriced = new RateDate(year, month, day);
+	RateDate*	datePriced = new RateDate(year, month, day, price);
 	return datePriced;
 }
 
-float	BitcoinExchange::getPrice(RateDate const & date) {
-	for (std::map<RateDate*, float>::iterator it = this->_dataBase.begin(); it != this->_dataBase.end(); it++) {
-		if (date < *(*it).first) {
-			float	price = 0.;
-			if (it != this->_dataBase.begin())
-				price = (--it)->second;
-			return price;
-		}
+float	BitcoinExchange::getPrice(RateDate &date) {
+	std::set<RateDate*>::iterator	it;
+
+	it = this->_dataBase.find(&date);
+	if (it != this->_dataBase.end())
+		return (*it)->price;
+	it = this->_dataBase.lower_bound(&date);
+	if (it != this->_dataBase.begin()) {
+		return (*(--it))->price;
 	}
-	return (--this->_dataBase.end())->second;
+	return 0.0;
 }
 
-bool	BitcoinExchange::isAlreadyPriced(RateDate const & date) {
-	for (std::map<RateDate*, float>::iterator it = this->_dataBase.begin(); it != this->_dataBase.end(); it++) {
-		if (it->first->year == date.year 
-			&& it->first->month == date.month 
-			&& it->first->day == date.day)
-			return true;
-	}
+bool	BitcoinExchange::isAlreadyPriced(RateDate& date) {
+	if (this->_dataBase.find(&date) != this->_dataBase.end())
+		return true;
 	return false;
 }
 
