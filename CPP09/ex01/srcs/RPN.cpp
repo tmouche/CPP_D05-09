@@ -6,7 +6,7 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 11:27:08 by tmouche           #+#    #+#             */
-/*   Updated: 2025/04/15 14:37:31 by thibaud          ###   ########.fr       */
+/*   Updated: 2025/05/15 13:17:14 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	RPN::multiplication(int& temp) {
 }
 
 void	RPN::division(int& temp) {
+	if (!temp)
+		throw std::exception();
 	temp = this->_myStack.top() / temp;
 	return ;
 }
