@@ -6,7 +6,7 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:21:45 by tmouche           #+#    #+#             */
-/*   Updated: 2025/04/18 02:41:13 by thibaud          ###   ########.fr       */
+/*   Updated: 2025/05/15 12:54:51 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,14 +129,14 @@ RateDate*	BitcoinExchange::createDate(std::string const & date) {
 
 float	BitcoinExchange::getPrice(RateDate const & date) {
 	for (std::map<RateDate*, float>::iterator it = this->_dataBase.begin(); it != this->_dataBase.end(); it++) {
-		if (date.year <= it->first->year && date.month <= it->first->month && date.day <= it->first->day) {
+		if (date < *(*it).first) {
 			float	price = 0.;
 			if (it != this->_dataBase.begin())
 				price = (--it)->second;
 			return price;
 		}
 	}
-	return this->_dataBase.end()->second;
+	return (--this->_dataBase.end())->second;
 }
 
 bool	BitcoinExchange::isAlreadyPriced(RateDate const & date) {

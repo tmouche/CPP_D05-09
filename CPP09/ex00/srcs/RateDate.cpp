@@ -6,7 +6,7 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:48:49 by tmouche           #+#    #+#             */
-/*   Updated: 2025/02/06 16:44:55 by thibaud          ###   ########.fr       */
+/*   Updated: 2025/05/15 12:53:53 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,7 @@ RateDate&	RateDate::operator=(RateDate const & rhs) {
 }
 
 bool	RateDate::operator<(RateDate const & rhs) const {
-	if (this->year < rhs.year)
-		return true;
-	if (this->month < rhs.month)
-		return true;
-	if (this->day < rhs.day)
+	if (this->year <= rhs.year && this->month <= rhs.month && this->day < rhs.day)
 		return true;
 	return false;
 }
