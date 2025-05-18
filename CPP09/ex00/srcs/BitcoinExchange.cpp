@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:21:45 by tmouche           #+#    #+#             */
-/*   Updated: 2025/05/15 15:07:30 by thibaud          ###   ########.fr       */
+/*   Updated: 2025/05/18 18:03:21 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,17 @@ void	BitcoinExchange::valorise(std::string const & walletFile) {
 	if (dataStr.compare("date | value"))
 		throw DatabaseErroneousData();
 	dataStr.clear();
-	while (std::getline(data, dataStr, '\n') && dataStr[0]) {
+	while (std::getline(data, dataStr, '\n') && data.str().size()) {
 		std::stringstream	ssData(dataStr);
 		std::string			date, amount;
 		float				famount;
 
 		std::getline(ssData, date, '|');
-		std::getline(ssData, amount, '|');
-		date.resize(date.size() - 1);
+		std::getline(ssData, amount, '\n');
+		if (date.size())
+			date.resize(date.size() - 1);
 		RateDate*	datePriced = createDate(date, 0.0);
-		if (!checkDate(date) || !checkPrice(amount) || !checkDate(*datePriced))
+		if (!checkDate(date) || !checkPrice(amount) || !checkDate(datePriced))
 			std::cerr << "Error: bad input => " << dataStr << std::endl;
 		else {
 			std::stringstream	ssPrice(amount);
@@ -75,7 +76,8 @@ void	BitcoinExchange::valorise(std::string const & walletFile) {
 			else
 				displayLine(date, famount, getPrice(*datePriced));
 		}
-		delete datePriced;
+		if (datePriced)
+			delete datePriced;
 		dataStr.clear();
 	}
 	return ;
@@ -101,8 +103,9 @@ void	BitcoinExchange::chargeDb( void ) {
 		std::stringstream	ssPrice(price);
 		ssPrice >> fprice;
 		RateDate*	datePriced = createDate(date, fprice);
-		if (!checkDate(*datePriced)) {
-			delete datePriced;
+		if (!checkDate(datePriced)) {
+			if (datePriced)
+				delete datePriced;
 			throw DataBaseNoDate(datePriced);
 		}
 		if (isAlreadyPriced(*datePriced)) {
@@ -125,6 +128,8 @@ RateDate*	BitcoinExchange::createDate(std::string const & date, float const pric
 	int					year, month, day;
 	char				temp;
 
+	if (date.empty())
+		return NULL;
 	ssDate >> year >> temp >> month >> temp >> day;
 	RateDate*	datePriced = new RateDate(year, month, day, price);
 	return datePriced;
@@ -162,7 +167,7 @@ bool	BitcoinExchange::checkPrice(std::string const & price) {
 				continue ;
 			}
 		}
-		else if (corpus.find(price[iPrice]) != std::string::npos)
+		else if (corpus.find(price[iPrice]) != std::string::npos || (iPrice == 1 && price[iPrice] == '-'))
 			continue;
 		res = false;
 	}
@@ -185,16 +190,18 @@ bool	BitcoinExchange::checkDate(std::string const & date) {
 	return res;
 }
 
-bool	BitcoinExchange::checkDate(RateDate const & date) {
+bool	BitcoinExchange::checkDate(RateDate const * date) {
 	bool	leap = false;
 
-	if	((date.year % 4 && date.year % 100) || date.year % 400)
+	if (!date)
+		return false;
+	if	((!(date->year % 4) && date->year % 100) || !(date->year % 400))
 		leap = true;
-	if (date.month < 1 || date.month > 12 || date.day < 1)
+	if (date->month < 1 || date->month > 12 || date->day < 1)
 		return false;
-	if (leap == true && this->_monthLeap[date.month - 1] < date.day)
+	if (leap == true && this->_monthLeap[date->month - 1] < date->day)
 		return false;
-	else if (leap == false && this->_month[date.month - 1] < date.day)
+	else if (leap == false && this->_month[date->month - 1] < date->day)
 		return false;
 	return true;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.class.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:43:36 by tmouche           #+#    #+#             */
-/*   Updated: 2025/05/15 14:41:52 by thibaud          ###   ########.fr       */
+/*   Updated: 2025/05/18 17:50:56 by tmouche          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ private:
 	
 	bool	checkPrice(std::string const & rate);
 	bool	checkDate(std::string const & date);
-	bool	checkDate(RateDate const & date);
+	bool	checkDate(RateDate const * date);
 	
 	float	getPrice(RateDate &date);
 	bool	isAlreadyPriced(RateDate &date);
