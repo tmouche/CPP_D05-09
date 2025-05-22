@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmouche <tmouche@student.42.fr>            +#+  +:+       +#+        */
+/*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:21:45 by tmouche           #+#    #+#             */
-/*   Updated: 2025/05/18 18:03:21 by tmouche          ###   ########.fr       */
+/*   Updated: 2025/05/22 10:29:16 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.class.hpp"
-#include "Exception.class.hpp"
 
 #include <fstream>
+#include <iostream>
+#include <exception>
 
 unsigned short const	BitcoinExchange::_month[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 unsigned short const	BitcoinExchange::_monthLeap[12] = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -29,7 +30,6 @@ BitcoinExchange::~BitcoinExchange( void ) {
 }
 
 BitcoinExchange::BitcoinExchange(std::string const & file) : _dbFile(file) {
-	this->chargeDb();
 	return ;
 }
 
@@ -51,8 +51,10 @@ void	BitcoinExchange::valorise(std::string const & walletFile) {
 	std::string			dataStr;
 	
 	std::getline(data, dataStr, '\n');
-	if (dataStr.compare("date | value"))
-		throw DatabaseErroneousData();
+	if (dataStr.compare("date | value")) {
+		std::cout << "Error: missing header in wallet" << std::endl;
+		throw std::exception();
+	}
 	dataStr.clear();
 	while (std::getline(data, dataStr, '\n') && data.str().size()) {
 		std::stringstream	ssData(dataStr);
@@ -65,14 +67,14 @@ void	BitcoinExchange::valorise(std::string const & walletFile) {
 			date.resize(date.size() - 1);
 		RateDate*	datePriced = createDate(date, 0.0);
 		if (!checkDate(date) || !checkPrice(amount) || !checkDate(datePriced))
-			std::cerr << "Error: bad input => " << dataStr << std::endl;
+			std::cout << "Error: bad input => " << dataStr << std::endl;
 		else {
 			std::stringstream	ssPrice(amount);
 			ssPrice >> famount;
 			if (famount > 1000)
-				std::cerr << "Error: too large a number." << std::endl;
+				std::cout << "Error: too large a number." << std::endl;
 			else if (famount < 0)
-				std::cerr << "Error: not a positive number." << std::endl;
+				std::cout << "Error: not a positive number." << std::endl;
 			else
 				displayLine(date, famount, getPrice(*datePriced));
 		}
@@ -88,8 +90,10 @@ void	BitcoinExchange::chargeDb( void ) {
 	std::string			dataStr;
 
 	std::getline(data, dataStr, '\n');
-	if (dataStr.compare("date,exchange_rate"))
-		throw DatabaseErroneousData();
+	if (dataStr.compare("date,exchange_rate")) {
+		std::cout << "Error: missing database's header" << std::endl;
+		throw std::exception();
+	}
 	dataStr.clear();
 	while (std::getline(data, dataStr, '\n') && dataStr[0]) {
 		std::stringstream	ssData(dataStr);
@@ -98,19 +102,27 @@ void	BitcoinExchange::chargeDb( void ) {
 		
 		std::getline(ssData, date, ',');
 		std::getline(ssData, price, ',');
-		if (!checkDate(date) || !checkPrice(price))
-			throw DatabaseErroneousData();
+		if (!checkDate(date) || !checkPrice(price)) {
+			std::cout << "Error: unknow token in database" << std::endl;
+			throw std::exception();
+		}
 		std::stringstream	ssPrice(price);
 		ssPrice >> fprice;
+		if (fprice < 0.) {
+			std::cout << "Error: a price can not be negative in database" << std::endl;
+			throw std::exception();
+		}
 		RateDate*	datePriced = createDate(date, fprice);
 		if (!checkDate(datePriced)) {
 			if (datePriced)
 				delete datePriced;
-			throw DataBaseNoDate(datePriced);
+			std::cout << "Error: Erroneous date in database" << std::endl;
+			throw std::exception();
 		}
 		if (isAlreadyPriced(*datePriced)) {
 			delete datePriced;
-			throw DataBaseDuplicateDate(datePriced);
+			std::cout << "Error: Date already priced in database" << std::endl;
+			throw std::exception();
 		}
 		this->_dataBase.insert(datePriced);
 		dataStr.clear();
@@ -154,20 +166,22 @@ bool	BitcoinExchange::isAlreadyPriced(RateDate& date) {
 	return false;
 }
 
-bool	BitcoinExchange::checkPrice(std::string const & price) {
+bool	BitcoinExchange::checkPrice(std::string & price) {
 	std::string corpus = "0123456789";
-	int const	priceSize = price.size();
-	bool		res = true;
 	bool		coma = false;
 
-	for (int iPrice = 1; iPrice < priceSize && res == true; ++iPrice) {
+	while (price.size() > 0 && *(price.begin()) == ' ')
+		price.erase(0, 1);
+	int const	priceSize = price.size();
+	bool		res = price.size() ? true : false;
+	for (int iPrice = 0; iPrice < priceSize && res == true; ++iPrice) {
 		if (price[iPrice] == '.' && iPrice) {
 			if (coma == false) {
 				coma = true;
 				continue ;
 			}
 		}
-		else if (corpus.find(price[iPrice]) != std::string::npos || (iPrice == 1 && price[iPrice] == '-'))
+		else if (corpus.find(price[iPrice]) != std::string::npos || (iPrice == 0 && price[iPrice] == '-'))
 			continue;
 		res = false;
 	}
@@ -210,8 +224,10 @@ std::string	BitcoinExchange::dumpFile(std::string const & name) {
 	std::ifstream	ifs(name.c_str());
 	std::string		data;
 
-	if (!ifs)
-		throw NoFileException(name);
+	if (!ifs) {
+		std::cout << "Error: No such file or directory " << name << std::endl;
+		throw std::exception();
+	}
 	std::getline(ifs, data, '\0');
 	ifs.close();
 	return data;
