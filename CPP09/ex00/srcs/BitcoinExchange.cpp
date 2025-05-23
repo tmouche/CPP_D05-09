@@ -6,7 +6,7 @@
 /*   By: thibaud <thibaud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 18:21:45 by tmouche           #+#    #+#             */
-/*   Updated: 2025/05/22 10:29:16 by thibaud          ###   ########.fr       */
+/*   Updated: 2025/05/23 13:47:50 by thibaud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void	BitcoinExchange::valorise(std::string const & walletFile) {
 		else {
 			std::stringstream	ssPrice(amount);
 			ssPrice >> famount;
-			if (famount > 1000)
+			if (famount > 1000.)
 				std::cout << "Error: too large a number." << std::endl;
-			else if (famount < 0)
+			else if (famount < 0. || famount == -0.)
 				std::cout << "Error: not a positive number." << std::endl;
 			else
 				displayLine(date, famount, getPrice(*datePriced));
